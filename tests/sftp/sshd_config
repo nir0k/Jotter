@@ -1,0 +1,14 @@
+# SFTP only, with password and public key sign-in, for the test stand.
+Port 22
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+PermitRootLogin no
+PasswordAuthentication yes
+KbdInteractiveAuthentication no
+PubkeyAuthentication yes
+AllowUsers jotter
+Subsystem sftp internal-sftp
+ForceCommand internal-sftp
+AllowTcpForwarding no
+X11Forwarding no

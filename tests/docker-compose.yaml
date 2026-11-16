@@ -1,0 +1,18 @@
+# Disposable test stand for synchronisation. Everything it stores lives in the container and goes
+# with `docker compose down`.
+name: jotter-test
+
+services:
+  sftp:
+    build: ./sftp
+    pull_policy: build
+    ports:
+      - "127.0.0.1:2222:22"
+    environment:
+      # An optional public key for the key sign-in method.
+      JOTTER_SFTP_AUTHORIZED_KEY: ${JOTTER_SFTP_AUTHORIZED_KEY:-}
+    healthcheck:
+      test: ["CMD", "nc", "-z", "127.0.0.1", "22"]
+      interval: 2s
+      timeout: 2s
+      retries: 15

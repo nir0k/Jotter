@@ -1,0 +1,4 @@
+# Qt Test cases are global classes, QFETCH declares mutable locals, and fixtures hold optional
+# members filled in init() with results checked by QVERIFY.
+InheritParentConfig: true
+Checks: '-misc-use-internal-linkage,-misc-const-correctness,-bugprone-unchecked-optional-access'

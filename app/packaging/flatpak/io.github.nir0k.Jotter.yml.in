@@ -1,0 +1,88 @@
+# Generated from io.github.nir0k.Jotter.yml.in by build-flatpak.sh, which stamps the version from
+# VERSION and packs the working tree into the archive the jotter module builds.
+id: io.github.nir0k.Jotter
+runtime: org.kde.Platform
+runtime-version: '6.11'
+sdk: org.kde.Sdk
+command: jotter
+# The permissions of the application; libraries outside the documents folder and imported
+# files go through the file chooser portal.
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --share=ipc
+  - --share=network
+  - --filesystem=xdg-documents
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --own-name=org.kde.StatusNotifierItem-2-1
+  - --system-talk-name=org.freedesktop.GeoClue2
+cleanup:
+  - /include
+  - /lib/cmake
+  - /lib/pkgconfig
+  - '*.a'
+modules:
+  # The Snowball stemmers of search. The C release has no install rule, so it is linked
+  # statically.
+  - name: libstemmer
+    buildsystem: simple
+    build-commands:
+      - make CFLAGS="$CFLAGS -fPIC" libstemmer.a
+      - install -Dm644 include/libstemmer.h -t /app/include
+      - install -Dm644 libstemmer.a -t /app/lib
+    license-files:
+      - COPYING
+    sources:
+      - type: archive
+        url: https://snowballstem.org/dist/libstemmer_c-3.1.0.tar.gz
+        sha256: 321d582f88b07101378596ad65c2e0b9c60cfab406cc736484799854d09eaa09
+
+  # SFTP of synchronisation; the KDE runtime has no libssh. Jotter is only a client.
+  - name: libssh
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DWITH_SERVER=OFF
+      - -DWITH_GSSAPI=OFF
+      - -DWITH_EXAMPLES=OFF
+    license-files:
+      - COPYING
+    sources:
+      - type: archive
+        url: https://www.libssh.org/files/0.12/libssh-0.12.2.tar.xz
+        sha256: 49560f677d96e3706a904ac2de1116e25f3680937d51e5c92198fcba4a1c1e9f
+
+  # The Markdown parser of paste; the KDE runtime's Qt embeds md4c without installing it.
+  - name: md4c
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_HTML_LIBRARY=OFF
+      - -DBUILD_MD2HTML_EXECUTABLE=OFF
+    license-files:
+      - LICENSE.md
+    sources:
+      - type: archive
+        url: https://github.com/mity/md4c/archive/refs/tags/v0.6.0.tar.gz
+        sha256: 4d151298125a81da3b2efa2e0eed8bdb7a9318569804e4fa4d7a2375ab83ef70
+
+  - name: jotter
+    buildsystem: cmake-ninja
+    builddir: true
+    subdir: app
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+    run-tests: true
+    build-options:
+      env:
+        QT_QPA_PLATFORM: offscreen
+    license-files:
+      - LICENSE
+    sources:
+      - type: archive
+        path: jotter-@VERSION@.tar.gz
+        # The checksum makes flatpak-builder rebuild Jotter whenever the archive changes; a
+        # local archive without one is taken from the cache even when its content differs.
+        sha256: @SHA256@

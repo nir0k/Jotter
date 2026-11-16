@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Application
+Name=Jotter
+GenericName=Note Manager
+GenericName[ru]=Менеджер заметок
+Comment=Write notes and keep them as readable HTML files
+Comment[ru]=Пишите заметки и храните их в читаемых HTML-файлах
+Exec=jotter
+Icon=io.github.nir0k.Jotter
+Terminal=false
+Categories=Office;
+Keywords=notes;notebook;journal;writing;
+Keywords[ru]=заметки;блокнот;записи;
+StartupNotify=true
+SingleMainWindow=true
+Actions=new-note;
+
+[Desktop Action new-note]
+Name=New note
+Name[ru]=Новая заметка
+Exec=jotter --new-note

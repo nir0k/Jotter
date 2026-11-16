@@ -1,0 +1,45 @@
+tmp/
+
+# Local agent state and instructions.
+.claude/
+CLAUDE.md
+AGENTS.md
+
+# Build output of the desktop application.
+/app/build/
+/app/build-*/
+CMakeUserPresets.json
+compile_commands.json
+.cache/
+
+# Packaging output.
+.flatpak-builder/
+*.flatpak
+/app/packaging/flatpak/build/
+
+# Test output.
+Testing/
+
+# Logs.
+*.log
+
+# Editors and IDEs.
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.fleet/
+.zed/
+
+# Operating system files.
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+.directory
+.Trash-*
+
+# Reports of the sync check on the test stand.
+/tests/reports/

@@ -1,0 +1,1315 @@
+{
+  "bootstrap_version": "1.13.2",
+  "groups": [
+    {
+      "id": "glyphs",
+      "title": "Jotter's glyphs: Bootstrap Icons of bootstrap_version and custom drawings in their style",
+      "icons": [
+        {
+          "name": "Back",
+          "bootstrap": "arrow-left",
+          "mirror": true,
+          "use": "Return to the previous screen (top bar navigation icon)"
+        },
+        {
+          "name": "Close",
+          "bootstrap": "x-lg",
+          "use": "Close a viewer, dialog, search or selection"
+        },
+        {
+          "name": "More",
+          "bootstrap": "three-dots-vertical",
+          "use": "Overflow menu of secondary actions"
+        },
+        {
+          "name": "ChevronDown",
+          "bootstrap": "chevron-down",
+          "use": "Open a choice; expand a section"
+        },
+        {
+          "name": "ChevronRight",
+          "bootstrap": "chevron-right",
+          "mirror": true,
+          "use": "Next period or page; row that opens a screen"
+        },
+        {
+          "name": "OpenExternal",
+          "bootstrap": "box-arrow-up-right",
+          "use": "Open in another application or the browser"
+        },
+        {
+          "name": "Copy",
+          "bootstrap": "copy",
+          "use": "Copy to the clipboard"
+        },
+        {
+          "name": "Search",
+          "bootstrap": "search",
+          "use": "Search"
+        },
+        {
+          "name": "Add",
+          "bootstrap": "plus-lg",
+          "use": "Create or add"
+        },
+        {
+          "name": "Edit",
+          "bootstrap": "pencil",
+          "use": "Edit"
+        },
+        {
+          "name": "Delete",
+          "bootstrap": "trash3",
+          "use": "Delete or remove"
+        },
+        {
+          "name": "Refresh",
+          "bootstrap": "arrow-clockwise",
+          "use": "Reload data"
+        },
+        {
+          "name": "Filter",
+          "bootstrap": "sliders",
+          "use": "Show or hide filters"
+        },
+        {
+          "name": "SortDescending",
+          "bootstrap": "sort-down",
+          "use": "Sort, descending direction"
+        },
+        {
+          "name": "SortAscending",
+          "bootstrap": "sort-up",
+          "use": "Sort, ascending direction"
+        },
+        {
+          "name": "Check",
+          "bootstrap": "check-lg",
+          "use": "Confirm; current choice; selected marker"
+        },
+        {
+          "name": "Favorite",
+          "bootstrap": "star",
+          "use": "Not a favourite (toggle off state); empty rating"
+        },
+        {
+          "name": "FavoriteFilled",
+          "bootstrap": "star-fill",
+          "use": "Favourite (toggle on state); rating"
+        },
+        {
+          "name": "Info",
+          "bootstrap": "info-circle",
+          "use": "Information message"
+        },
+        {
+          "name": "Warning",
+          "bootstrap": "exclamation-triangle",
+          "use": "Warning message"
+        },
+        {
+          "name": "Error",
+          "bootstrap": "exclamation-circle",
+          "use": "Error message; failed item"
+        },
+        {
+          "name": "Settings",
+          "bootstrap": "gear",
+          "use": "Settings menu entry"
+        },
+        {
+          "name": "Storage",
+          "bootstrap": "hdd",
+          "use": "Storage and offline data"
+        },
+        {
+          "name": "Language",
+          "bootstrap": "translate",
+          "use": "Interface language"
+        },
+        {
+          "name": "Theme",
+          "bootstrap": "circle-half",
+          "use": "Light/dark theme"
+        },
+        {
+          "name": "LightMode",
+          "bootstrap": "sun",
+          "use": "Light theme mode"
+        },
+        {
+          "name": "DarkMode",
+          "bootstrap": "moon-stars",
+          "use": "Dark theme mode"
+        },
+        {
+          "name": "Note",
+          "bootstrap": "journal-text",
+          "use": "Notes, description"
+        },
+        {
+          "name": "Tag",
+          "bootstrap": "tag",
+          "use": "Tags"
+        },
+        {
+          "name": "Archive",
+          "bootstrap": "archive",
+          "use": "Archive"
+        },
+        {
+          "name": "Folder",
+          "bootstrap": "folder",
+          "use": "Folder, collection"
+        },
+        {
+          "name": "Place",
+          "bootstrap": "geo-alt",
+          "use": "Location; open coordinates on a map"
+        },
+        {
+          "name": "Link",
+          "bootstrap": "link-45deg",
+          "use": "Link to another item; share link"
+        },
+        {
+          "name": "Bookmark",
+          "bootstrap": "bookmark",
+          "use": "Saved or planned item"
+        },
+        {
+          "name": "Calendar",
+          "bootstrap": "calendar3",
+          "use": "Date or period"
+        },
+        {
+          "name": "Time",
+          "bootstrap": "clock",
+          "use": "Time of day; add time"
+        },
+        {
+          "name": "Home",
+          "bootstrap": "house",
+          "use": "Home destination"
+        },
+        {
+          "name": "Map",
+          "bootstrap": "map",
+          "use": "Map destination or tab"
+        },
+        {
+          "name": "Globe",
+          "bootstrap": "globe",
+          "use": "Country, website"
+        },
+        {
+          "name": "CarFront",
+          "bootstrap": "car-front",
+          "use": "Garage"
+        },
+        {
+          "name": "Money",
+          "bootstrap": "cash",
+          "use": "Cost or amount; add cost"
+        },
+        {
+          "name": "Wallet",
+          "bootstrap": "wallet2",
+          "use": "Budget, account balance"
+        },
+        {
+          "name": "Camera",
+          "bootstrap": "camera",
+          "use": "Take a photo"
+        },
+        {
+          "name": "Image",
+          "bootstrap": "image",
+          "use": "One image; cover"
+        },
+        {
+          "name": "Document",
+          "bootstrap": "file-earmark-text",
+          "use": "Document or attachment"
+        },
+        {
+          "name": "Chart",
+          "bootstrap": "bar-chart",
+          "use": "Statistics destination"
+        },
+        {
+          "name": "Trend",
+          "bootstrap": "graph-up",
+          "use": "Trend; activity integration fallback"
+        },
+        {
+          "name": "People",
+          "bootstrap": "people",
+          "use": "Members, sharing"
+        },
+        {
+          "name": "Profile",
+          "bootstrap": "person",
+          "use": "Profile menu entry; avatar placeholder"
+        },
+        {
+          "name": "Key",
+          "bootstrap": "key",
+          "use": "API token or credential"
+        },
+        {
+          "name": "Lock",
+          "bootstrap": "lock",
+          "use": "Locked or restricted content"
+        },
+        {
+          "name": "Flower",
+          "bootstrap": "flower1",
+          "use": "Balcony, terrace, plants"
+        },
+        {
+          "name": "CupHot",
+          "bootstrap": "cup-hot",
+          "use": "Dining room, a drinks corner"
+        },
+        {
+          "name": "ChevronUp",
+          "bootstrap": "chevron-up",
+          "use": "Collapse a section"
+        },
+        {
+          "name": "Attach",
+          "bootstrap": "paperclip",
+          "use": "Attach a file"
+        },
+        {
+          "name": "TableView",
+          "bootstrap": "table",
+          "use": "Switch a collection to a table (web)"
+        },
+        {
+          "name": "AllNotes",
+          "bootstrap": "journals",
+          "use": "All notes or documents of a library"
+        },
+        {
+          "name": "QuickNote",
+          "bootstrap": "lightning-charge",
+          "use": "Quick capture of a short note"
+        },
+        {
+          "name": "Sidebar",
+          "bootstrap": "layout-sidebar",
+          "use": "Show or hide the sidebar of a desktop window"
+        },
+        {
+          "name": "Paragraph",
+          "bootstrap": "paragraph",
+          "use": "Paragraph style"
+        },
+        {
+          "name": "Heading1",
+          "bootstrap": "type-h1",
+          "use": "Heading 1 style"
+        },
+        {
+          "name": "Heading2",
+          "bootstrap": "type-h2",
+          "use": "Heading 2 style"
+        },
+        {
+          "name": "Heading3",
+          "bootstrap": "type-h3",
+          "use": "Heading 3 style"
+        },
+        {
+          "name": "Quote",
+          "bootstrap": "quote",
+          "use": "Quote"
+        },
+        {
+          "name": "Bold",
+          "bootstrap": "type-bold",
+          "use": "Bold text"
+        },
+        {
+          "name": "Italic",
+          "bootstrap": "type-italic",
+          "use": "Italic text"
+        },
+        {
+          "name": "Underline",
+          "bootstrap": "type-underline",
+          "use": "Underlined text"
+        },
+        {
+          "name": "Strikethrough",
+          "bootstrap": "type-strikethrough",
+          "use": "Struck-through text"
+        },
+        {
+          "name": "Superscript",
+          "bootstrap": "superscript",
+          "use": "Superscript text"
+        },
+        {
+          "name": "Subscript",
+          "bootstrap": "subscript",
+          "use": "Subscript text"
+        },
+        {
+          "name": "InlineCode",
+          "bootstrap": "code",
+          "use": "Inline code"
+        },
+        {
+          "name": "TextColor",
+          "bootstrap": "type",
+          "use": "Text colour"
+        },
+        {
+          "name": "Highlight",
+          "bootstrap": "highlighter",
+          "use": "Highlight colour"
+        },
+        {
+          "name": "BulletedList",
+          "bootstrap": "list-ul",
+          "use": "Bulleted list"
+        },
+        {
+          "name": "NumberedList",
+          "bootstrap": "list-ol",
+          "use": "Numbered list"
+        },
+        {
+          "name": "Checklist",
+          "bootstrap": "list-check",
+          "use": "Checklist"
+        },
+        {
+          "name": "Indent",
+          "bootstrap": "text-indent-left",
+          "use": "Move a list item one level deeper"
+        },
+        {
+          "name": "Outdent",
+          "bootstrap": "text-indent-right",
+          "use": "Move a list item one level up"
+        },
+        {
+          "name": "Divider",
+          "bootstrap": "hr",
+          "use": "Insert a divider"
+        },
+        {
+          "name": "Heart",
+          "bootstrap": "heart",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Flag",
+          "bootstrap": "flag",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Lightbulb",
+          "bootstrap": "lightbulb",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Briefcase",
+          "bootstrap": "briefcase",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Book",
+          "bootstrap": "book",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Mortarboard",
+          "bootstrap": "mortarboard",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Code",
+          "bootstrap": "code-slash",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Terminal",
+          "bootstrap": "terminal",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Bug",
+          "bootstrap": "bug",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Rocket",
+          "bootstrap": "rocket-takeoff",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Airplane",
+          "bootstrap": "airplane",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Cart",
+          "bootstrap": "cart",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Gift",
+          "bootstrap": "gift",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Film",
+          "bootstrap": "film",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Music",
+          "bootstrap": "music-note-beamed",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Palette",
+          "bootstrap": "palette",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Chat",
+          "bootstrap": "chat",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Envelope",
+          "bootstrap": "envelope",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Phone",
+          "bootstrap": "telephone",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Tools",
+          "bootstrap": "tools",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Puzzle",
+          "bootstrap": "puzzle",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Trophy",
+          "bootstrap": "trophy",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Tree",
+          "bootstrap": "tree",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Fire",
+          "bootstrap": "fire",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Cloud",
+          "bootstrap": "cloud",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "Inbox",
+          "bootstrap": "inbox",
+          "use": "A choice of the icon picker for notes, collections and similar items"
+        },
+        {
+          "name": "File",
+          "bootstrap": "file-earmark",
+          "use": "A file without a more specific type"
+        },
+        {
+          "name": "FilePdf",
+          "bootstrap": "file-earmark-pdf",
+          "use": "A PDF document"
+        },
+        {
+          "name": "FileZip",
+          "bootstrap": "file-earmark-zip",
+          "use": "An archive"
+        },
+        {
+          "name": "FileAudio",
+          "bootstrap": "file-earmark-music",
+          "use": "An audio file"
+        },
+        {
+          "name": "FileVideo",
+          "bootstrap": "file-earmark-play",
+          "use": "A video"
+        },
+        {
+          "name": "FileImage",
+          "bootstrap": "file-earmark-image",
+          "use": "An image kept as a file"
+        },
+        {
+          "name": "FileCode",
+          "bootstrap": "file-earmark-code",
+          "use": "Source code or structured text"
+        },
+        {
+          "name": "FileSpreadsheet",
+          "bootstrap": "file-earmark-spreadsheet",
+          "use": "A spreadsheet"
+        },
+        {
+          "name": "Focus",
+          "bootstrap": "arrows-angle-expand",
+          "use": "Enter a focus mode that shows only the content being edited"
+        },
+        {
+          "name": "FocusExit",
+          "bootstrap": "arrows-angle-contract",
+          "use": "Leave the focus mode"
+        },
+        {
+          "name": "Rules",
+          "bootstrap": "signpost-split",
+          "use": "Automatic filing rules in settings"
+        },
+        {
+          "name": "Keyboard",
+          "bootstrap": "keyboard",
+          "use": "Keyboard shortcuts in settings"
+        },
+        {
+          "name": "Grip",
+          "bootstrap": "grip-horizontal",
+          "use": "Grip an object such as a table is dragged by to move it"
+        },
+        {
+          "name": "WrapInline",
+          "custom": "wrap-inline",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Image in line with text"
+        },
+        {
+          "name": "WrapSquare",
+          "custom": "wrap-square",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Text wrapped around an image's side"
+        },
+        {
+          "name": "WrapTopBottom",
+          "custom": "wrap-top-bottom",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Text above and below an image"
+        },
+        {
+          "name": "Notifications",
+          "bootstrap": "bell",
+          "use": "Notifications"
+        },
+        {
+          "name": "Laptop",
+          "bootstrap": "laptop",
+          "use": "Office, study"
+        },
+        {
+          "name": "Server",
+          "bootstrap": "hdd-network",
+          "use": "Server address; connection"
+        },
+        {
+          "name": "Tv",
+          "bootstrap": "tv",
+          "use": "Media room, television"
+        },
+        {
+          "name": "Battery",
+          "bootstrap": "battery-full",
+          "use": "Battery level; a charged battery"
+        },
+        {
+          "name": "Integrations",
+          "bootstrap": "plug",
+          "use": "Integrations menu entry"
+        },
+        {
+          "name": "Temperature",
+          "bootstrap": "thermometer-half",
+          "use": "Temperature reading or setting"
+        },
+        {
+          "name": "Humidity",
+          "bootstrap": "moisture",
+          "use": "Relative humidity reading"
+        },
+        {
+          "name": "Pressure",
+          "custom": "pressure",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Atmospheric pressure reading"
+        },
+        {
+          "name": "Co2",
+          "custom": "co2",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Carbon dioxide (CO2) concentration"
+        },
+        {
+          "name": "Walk",
+          "custom": "activity-walk",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Walking"
+        },
+        {
+          "name": "Hiking",
+          "custom": "activity-hiking",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Hiking"
+        },
+        {
+          "name": "Run",
+          "custom": "activity-run",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Running"
+        },
+        {
+          "name": "TrailRun",
+          "custom": "activity-trail-run",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Trail running"
+        },
+        {
+          "name": "Bike",
+          "custom": "activity-bike",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Cycling"
+        },
+        {
+          "name": "Mountaineering",
+          "custom": "activity-mountaineering",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Mountain climbing"
+        },
+        {
+          "name": "Canyoning",
+          "custom": "activity-canyoning",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Canyoning"
+        },
+        {
+          "name": "NordicSki",
+          "custom": "activity-nordic-ski",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Nordic skiing"
+        },
+        {
+          "name": "Rowing",
+          "custom": "activity-rowing",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Rowing"
+        },
+        {
+          "name": "Whitewater",
+          "custom": "activity-whitewater",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Whitewater rafting and kayaking"
+        },
+        {
+          "name": "Flatwater",
+          "custom": "activity-flatwater",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Flatwater paddling, stand-up paddle"
+        },
+        {
+          "name": "Swim",
+          "custom": "activity-swim",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Open-water swimming"
+        },
+        {
+          "name": "Bed",
+          "custom": "bed",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Bedroom"
+        },
+        {
+          "name": "Sofa",
+          "custom": "sofa",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Living room"
+        },
+        {
+          "name": "Bathtub",
+          "custom": "bathtub",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Bathroom"
+        },
+        {
+          "name": "Crib",
+          "custom": "crib",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Children's room, nursery"
+        },
+        {
+          "name": "DoorOpen",
+          "bootstrap": "door-open",
+          "use": "Hallway, entrance"
+        },
+        {
+          "name": "Lamp",
+          "bootstrap": "lamp",
+          "use": "A room in general, lighting"
+        },
+        {
+          "name": "WashingMachine",
+          "custom": "washing-machine",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Laundry"
+        },
+        {
+          "name": "RobotVacuum",
+          "custom": "robot-vacuum",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Robot vacuum appliance"
+        },
+        {
+          "name": "AirPurifier",
+          "custom": "air-purifier",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Air purifier appliance"
+        },
+        {
+          "name": "CookingPot",
+          "custom": "cooking-pot",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Kitchen"
+        },
+        {
+          "name": "Water",
+          "bootstrap": "droplet-half",
+          "use": "Water output of an appliance"
+        },
+        {
+          "name": "Pin",
+          "bootstrap": "pin-angle",
+          "use": "Pinned or important item"
+        },
+        {
+          "name": "Hourglass",
+          "bootstrap": "hourglass-split",
+          "use": "Waiting, deadline, something in progress"
+        },
+        {
+          "name": "Sparkles",
+          "bootstrap": "stars",
+          "use": "Ideas, inspiration, something new"
+        },
+        {
+          "name": "Target",
+          "bootstrap": "bullseye",
+          "use": "Goal"
+        },
+        {
+          "name": "Kanban",
+          "bootstrap": "kanban",
+          "use": "Kanban board, project stages"
+        },
+        {
+          "name": "Presentation",
+          "bootstrap": "easel2",
+          "use": "Presentation, talk"
+        },
+        {
+          "name": "Workspace",
+          "bootstrap": "person-workspace",
+          "use": "Workplace, desk"
+        },
+        {
+          "name": "Office",
+          "bootstrap": "building",
+          "use": "Office, company"
+        },
+        {
+          "name": "Clipboard",
+          "bootstrap": "clipboard-check",
+          "use": "Tasks, checks"
+        },
+        {
+          "name": "Calculator",
+          "bootstrap": "calculator",
+          "use": "Calculations, accounting"
+        },
+        {
+          "name": "Megaphone",
+          "bootstrap": "megaphone",
+          "use": "Announcement, marketing"
+        },
+        {
+          "name": "Journal",
+          "bootstrap": "journal-bookmark",
+          "use": "Journal, diary"
+        },
+        {
+          "name": "Bookshelf",
+          "bootstrap": "bookshelf",
+          "use": "Library, reading list"
+        },
+        {
+          "name": "Pen",
+          "bootstrap": "pen",
+          "use": "Writing, signing"
+        },
+        {
+          "name": "Braces",
+          "bootstrap": "braces",
+          "use": "Code structure, data formats"
+        },
+        {
+          "name": "Database",
+          "bootstrap": "database",
+          "use": "Database"
+        },
+        {
+          "name": "Diagram",
+          "bootstrap": "diagram-3",
+          "use": "Structure, hierarchy, architecture"
+        },
+        {
+          "name": "Robot",
+          "bootstrap": "robot",
+          "use": "Automation, bots, AI"
+        },
+        {
+          "name": "Desktop",
+          "bootstrap": "pc-display",
+          "use": "Desktop computer"
+        },
+        {
+          "name": "ServerRack",
+          "bootstrap": "hdd-rack",
+          "use": "Server rack, data centre"
+        },
+        {
+          "name": "HardDrive",
+          "bootstrap": "device-hdd",
+          "use": "Hard drive, storage device"
+        },
+        {
+          "name": "Cpu",
+          "bootstrap": "cpu",
+          "use": "Processor, hardware"
+        },
+        {
+          "name": "Memory",
+          "bootstrap": "memory",
+          "use": "Memory module"
+        },
+        {
+          "name": "Router",
+          "bootstrap": "router",
+          "use": "Router, home network"
+        },
+        {
+          "name": "Wifi",
+          "bootstrap": "wifi",
+          "use": "Wi-Fi, wireless network"
+        },
+        {
+          "name": "UsbDrive",
+          "bootstrap": "usb-drive",
+          "use": "USB drive"
+        },
+        {
+          "name": "Mouse",
+          "bootstrap": "mouse",
+          "use": "Computer mouse"
+        },
+        {
+          "name": "Printer",
+          "bootstrap": "printer",
+          "use": "Printer"
+        },
+        {
+          "name": "Smartphone",
+          "bootstrap": "phone",
+          "use": "Smartphone"
+        },
+        {
+          "name": "Tablet",
+          "bootstrap": "tablet",
+          "use": "Tablet"
+        },
+        {
+          "name": "Smartwatch",
+          "bootstrap": "smartwatch",
+          "use": "Smartwatch"
+        },
+        {
+          "name": "Headphones",
+          "bootstrap": "headphones",
+          "use": "Headphones"
+        },
+        {
+          "name": "Headset",
+          "bootstrap": "headset",
+          "use": "Headset, support calls"
+        },
+        {
+          "name": "Speaker",
+          "bootstrap": "speaker",
+          "use": "Speaker"
+        },
+        {
+          "name": "Microphone",
+          "bootstrap": "mic",
+          "use": "Microphone, recording"
+        },
+        {
+          "name": "VideoCamera",
+          "bootstrap": "camera-video",
+          "use": "Video camera"
+        },
+        {
+          "name": "Gauge",
+          "bootstrap": "speedometer",
+          "use": "Speedometer, measurements"
+        },
+        {
+          "name": "Antenna",
+          "bootstrap": "broadcast",
+          "use": "Antenna, broadcasting, radio"
+        },
+        {
+          "name": "Stopwatch",
+          "bootstrap": "stopwatch",
+          "use": "Stopwatch, timing"
+        },
+        {
+          "name": "Pulse",
+          "bootstrap": "activity",
+          "use": "Activity, heart rate"
+        },
+        {
+          "name": "Award",
+          "bootstrap": "award",
+          "use": "Award, achievement"
+        },
+        {
+          "name": "Backpack",
+          "bootstrap": "backpack",
+          "use": "Backpack, outdoor trip"
+        },
+        {
+          "name": "Compass",
+          "bootstrap": "compass",
+          "use": "Compass, orientation"
+        },
+        {
+          "name": "Binoculars",
+          "bootstrap": "binoculars",
+          "use": "Binoculars, observation"
+        },
+        {
+          "name": "Suitcase",
+          "bootstrap": "suitcase",
+          "use": "Vacation"
+        },
+        {
+          "name": "Luggage",
+          "bootstrap": "luggage",
+          "use": "Luggage, packing list"
+        },
+        {
+          "name": "Signpost",
+          "bootstrap": "signpost-2",
+          "use": "Route, directions"
+        },
+        {
+          "name": "Train",
+          "bootstrap": "train-front",
+          "use": "Train"
+        },
+        {
+          "name": "Bus",
+          "bootstrap": "bus-front",
+          "use": "Bus"
+        },
+        {
+          "name": "Scooter",
+          "bootstrap": "scooter",
+          "use": "Scooter"
+        },
+        {
+          "name": "Fuel",
+          "bootstrap": "fuel-pump",
+          "use": "Fuel, petrol station"
+        },
+        {
+          "name": "Ticket",
+          "bootstrap": "ticket-perforated",
+          "use": "Ticket, event"
+        },
+        {
+          "name": "Umbrella",
+          "bootstrap": "umbrella",
+          "use": "Umbrella, rain"
+        },
+        {
+          "name": "Sunglasses",
+          "bootstrap": "sunglasses",
+          "use": "Sunglasses, beach"
+        },
+        {
+          "name": "Sunrise",
+          "bootstrap": "sunrise",
+          "use": "Sunrise, morning"
+        },
+        {
+          "name": "Postcard",
+          "bootstrap": "postcard",
+          "use": "Postcard, greetings"
+        },
+        {
+          "name": "LifeBuoy",
+          "bootstrap": "life-preserver",
+          "use": "Lifebuoy, help, safety"
+        },
+        {
+          "name": "Bucket",
+          "bootstrap": "bucket",
+          "use": "Bucket, cleaning"
+        },
+        {
+          "name": "Bin",
+          "bootstrap": "trash2",
+          "use": "Rubbish bin, household waste (not the Delete action)"
+        },
+        {
+          "name": "Recycle",
+          "bootstrap": "recycle",
+          "use": "Recycling"
+        },
+        {
+          "name": "Basket",
+          "bootstrap": "basket",
+          "use": "Basket, groceries"
+        },
+        {
+          "name": "Bag",
+          "bootstrap": "bag",
+          "use": "Bag, purchases"
+        },
+        {
+          "name": "Hammer",
+          "bootstrap": "hammer",
+          "use": "Hammer, repairs"
+        },
+        {
+          "name": "Wrench",
+          "bootstrap": "wrench-adjustable",
+          "use": "Wrench, maintenance"
+        },
+        {
+          "name": "Screwdriver",
+          "bootstrap": "screwdriver",
+          "use": "Screwdriver, assembly"
+        },
+        {
+          "name": "PaintBucket",
+          "bootstrap": "paint-bucket",
+          "use": "Painting, decorating"
+        },
+        {
+          "name": "Scissors",
+          "bootstrap": "scissors",
+          "use": "Scissors, crafts"
+        },
+        {
+          "name": "ForkKnife",
+          "bootstrap": "fork-knife",
+          "use": "Food, restaurant"
+        },
+        {
+          "name": "Cup",
+          "bootstrap": "cup-straw",
+          "use": "Drink"
+        },
+        {
+          "name": "Egg",
+          "bootstrap": "egg-fried",
+          "use": "Breakfast"
+        },
+        {
+          "name": "Cake",
+          "bootstrap": "cake",
+          "use": "Cake, birthday"
+        },
+        {
+          "name": "Cookie",
+          "bootstrap": "cookie",
+          "use": "Cookie, sweets"
+        },
+        {
+          "name": "MeasuringCup",
+          "bootstrap": "measuring-cup",
+          "use": "Recipe, baking"
+        },
+        {
+          "name": "Balloon",
+          "bootstrap": "balloon",
+          "use": "Party, celebration"
+        },
+        {
+          "name": "Brush",
+          "bootstrap": "brush",
+          "use": "Brush, drawing"
+        },
+        {
+          "name": "Vinyl",
+          "bootstrap": "vinyl",
+          "use": "Record, music collection"
+        },
+        {
+          "name": "CameraReels",
+          "bootstrap": "camera-reels",
+          "use": "Video, filming"
+        },
+        {
+          "name": "Gamepad",
+          "bootstrap": "controller",
+          "use": "Video games"
+        },
+        {
+          "name": "Dice",
+          "bootstrap": "dice-5",
+          "use": "Board games"
+        },
+        {
+          "name": "Feather",
+          "bootstrap": "feather",
+          "use": "Writing, poetry"
+        },
+        {
+          "name": "Gem",
+          "bootstrap": "gem",
+          "use": "Gem, collection, something valuable"
+        },
+        {
+          "name": "CreditCard",
+          "bootstrap": "credit-card",
+          "use": "Bank card"
+        },
+        {
+          "name": "PiggyBank",
+          "bootstrap": "piggy-bank",
+          "use": "Savings"
+        },
+        {
+          "name": "Bank",
+          "bootstrap": "bank",
+          "use": "Bank"
+        },
+        {
+          "name": "Receipt",
+          "bootstrap": "receipt",
+          "use": "Receipt, bills"
+        },
+        {
+          "name": "Coin",
+          "bootstrap": "coin",
+          "use": "Coin, small expenses"
+        },
+        {
+          "name": "Shop",
+          "bootstrap": "shop",
+          "use": "Shop"
+        },
+        {
+          "name": "HeartPulse",
+          "bootstrap": "heart-pulse",
+          "use": "Health"
+        },
+        {
+          "name": "Capsule",
+          "bootstrap": "capsule",
+          "use": "Medicine"
+        },
+        {
+          "name": "Bandaid",
+          "bootstrap": "bandaid",
+          "use": "First aid, injury"
+        },
+        {
+          "name": "Hospital",
+          "bootstrap": "hospital",
+          "use": "Hospital, doctor"
+        },
+        {
+          "name": "Snow",
+          "bootstrap": "snow",
+          "use": "Snow, winter"
+        },
+        {
+          "name": "Rain",
+          "bootstrap": "cloud-rain",
+          "use": "Rain"
+        },
+        {
+          "name": "Wind",
+          "bootstrap": "wind",
+          "use": "Wind"
+        },
+        {
+          "name": "Waves",
+          "bootstrap": "water",
+          "use": "Sea, waves"
+        },
+        {
+          "name": "Gym",
+          "custom": "gym",
+          "source": "Custom",
+          "license": "MIT",
+          "use": "Gym and strength training (a dumbbell)"
+        }
+      ]
+    }
+  ]
+}

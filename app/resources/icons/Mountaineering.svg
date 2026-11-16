@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path d="M11 5.5a1.75 1.75 0 1 0 0-3.5 1.75 1.75 0 0 0 0 3.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  <path d="M10 7.5 9.5 12.5l1.5 2.5.5 3.5m-2-6-1.5 3.5-1.5 3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  <path d="m10 8.5 2 2.5 2-.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  <path d="M14.5 8.5V18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  <path d="M4.5 8.5A1.5 1.5 0 0 1 6 7h1.5v5H6a1.5 1.5 0 0 1-1.5-1.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  <path d="M2 21.5h2.5l2-1.5h4l3-2.5h2.5l2-3.5 2-1 1.5-2.5h2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+</svg>

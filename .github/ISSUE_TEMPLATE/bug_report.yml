@@ -1,0 +1,61 @@
+name: Bug report
+description: Something in Jotter does not work as it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Please check that the problem is still present in the latest release. Remove personal notes and credentials from anything you attach. Report vulnerabilities privately as described in SECURITY.md, not here.
+  - type: input
+    id: version
+    attributes:
+      label: Jotter version
+      description: Shown in Settings, or by `flatpak info io.github.nir0k.Jotter`.
+      placeholder: "0.5.0"
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: Distribution and desktop
+      placeholder: Fedora 44, GNOME on Wayland
+    validations:
+      required: true
+  - type: dropdown
+    id: sync
+    attributes:
+      label: Synchronisation
+      description: Is the library synchronised through SFTP?
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Create a note
+        2. Paste a table from a web page
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: What happened instead; screenshots and error messages help.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log output
+      description: Output of `flatpak run io.github.nir0k.Jotter` started from a terminal, if it shows anything relevant.
+      render: text

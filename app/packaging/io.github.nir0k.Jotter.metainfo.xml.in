@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.nir0k.Jotter</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Apache-2.0</project_license>
+  <name>Jotter</name>
+  <summary>Write notes and keep them as readable HTML files</summary>
+  <summary xml:lang="ru">Пишите заметки и храните их в читаемых HTML-файлах</summary>
+  <description>
+    <p>Jotter is a note manager for the Linux desktop. Notes are organised into nested collections and tags and stored in a library folder as ordinary HTML files, so they stay readable in any browser without Jotter.</p>
+    <p xml:lang="ru">Jotter — менеджер заметок для рабочего стола Linux. Заметки собираются во вложенные коллекции и теги и хранятся в папке библиотеки в обычных HTML-файлах, поэтому их можно читать в любом браузере без Jotter.</p>
+    <p>A library can be synchronised between devices through a folder on your own SFTP server; changes made on two devices are merged, and conflicting ones are kept as copies.</p>
+    <p xml:lang="ru">Библиотеку можно синхронизировать между устройствами через папку на вашем SFTP-сервере; изменения с двух устройств объединяются, а конфликтующие сохраняются копиями.</p>
+  </description>
+  <developer id="io.github.nir0k">
+    <name>nir0k</name>
+  </developer>
+  <launchable type="desktop-id">io.github.nir0k.Jotter.desktop</launchable>
+  <url type="homepage">https://github.com/nir0k/Jotter</url>
+  <url type="bugtracker">https://github.com/nir0k/Jotter/issues</url>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Collections, the note list and a note in the editor</caption>
+      <caption xml:lang="ru">Коллекции, список заметок и заметка в редакторе</caption>
+      <image>https://raw.githubusercontent.com/nir0k/Jotter/main/docs/screenshots/main.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>A note with a code block in the dark theme</caption>
+      <caption xml:lang="ru">Заметка с блоком кода в тёмной теме</caption>
+      <image>https://raw.githubusercontent.com/nir0k/Jotter/main/docs/screenshots/editor-dark.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1"/>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+  <provides>
+    <binary>jotter</binary>
+  </provides>
+  <releases>
+    <release version="@PROJECT_VERSION@" date="@JOTTER_RELEASE_DATE@"/>
+  </releases>
+</component>

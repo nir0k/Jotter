@@ -1,0 +1,36 @@
+# Qt-like layout: four-space indents, braces on their own line for types and functions.
+BasedOnStyle: LLVM
+Standard: Latest
+IndentWidth: 4
+ColumnLimit: 100
+AccessModifierOffset: -4
+PointerAlignment: Right
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterFunction: true
+  AfterNamespace: false
+  AfterEnum: false
+  AfterControlStatement: Never
+  BeforeElse: false
+  BeforeCatch: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortLambdasOnASingleLine: All
+BreakConstructorInitializers: BeforeComma
+PackConstructorInitializers: Never
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^"'
+    Priority: 1
+  - Regex: '^<Q'
+    Priority: 2
+  - Regex: '^<K'
+    Priority: 3
+  - Regex: '.*'
+    Priority: 4
