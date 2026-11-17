@@ -13,7 +13,8 @@ void addCollectionItems(QComboBox &box, const QList<core::Collection> &collectio
             continue;
         }
         const auto color = ui::colorFromKey(collection->color.value_or(QString()));
-        box.addItem(color ? ui::icon(collection->icon, *color) : ui::icon(collection->icon),
+        const QString glyph = ui::collectionGlyph(collection->icon);
+        box.addItem(color ? ui::icon(glyph, *color) : ui::icon(glyph),
                     QString(qsizetype{depth} * 3, u' ') + collection->name, collection->id);
     }
 }

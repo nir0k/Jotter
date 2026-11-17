@@ -2630,10 +2630,6 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Закладка</translation>
     </message>
     <message>
-        <source>Star</source>
-        <translation>Звезда</translation>
-    </message>
-    <message>
         <source>Heart</source>
         <translation>Сердце</translation>
     </message>
@@ -2650,24 +2646,8 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Идея</translation>
     </message>
     <message>
-        <source>Sparkles</source>
-        <translation>Блеск</translation>
-    </message>
-    <message>
-        <source>Goal</source>
-        <translation>Цель</translation>
-    </message>
-    <message>
         <source>Pin</source>
         <translation>Булавка</translation>
-    </message>
-    <message>
-        <source>Bell</source>
-        <translation>Колокольчик</translation>
-    </message>
-    <message>
-        <source>Hourglass</source>
-        <translation>Песочные часы</translation>
     </message>
     <message>
         <source>Inbox</source>
@@ -2678,24 +2658,12 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Архив</translation>
     </message>
     <message>
-        <source>Lightning</source>
-        <translation>Молния</translation>
-    </message>
-    <message>
         <source>Checklist</source>
         <translation>Чек-лист</translation>
     </message>
     <message>
         <source>Work</source>
         <translation>Работа</translation>
-    </message>
-    <message>
-        <source>Office</source>
-        <translation>Офис</translation>
-    </message>
-    <message>
-        <source>Workplace</source>
-        <translation>Рабочее место</translation>
     </message>
     <message>
         <source>Calendar</source>
@@ -2714,16 +2682,8 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Задачи</translation>
     </message>
     <message>
-        <source>Presentation</source>
-        <translation>Презентация</translation>
-    </message>
-    <message>
         <source>Chart</source>
         <translation>Диаграмма</translation>
-    </message>
-    <message>
-        <source>Growth</source>
-        <translation>Рост</translation>
     </message>
     <message>
         <source>Calculator</source>
@@ -2748,10 +2708,6 @@ Ctrl+щелчок, чтобы открыть</translation>
     <message>
         <source>Phone</source>
         <translation>Телефон</translation>
-    </message>
-    <message>
-        <source>Announcement</source>
-        <translation>Объявление</translation>
     </message>
     <message>
         <source>Study</source>
@@ -2794,20 +2750,8 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>База данных</translation>
     </message>
     <message>
-        <source>Structure</source>
-        <translation>Структура</translation>
-    </message>
-    <message>
-        <source>Robot</source>
-        <translation>Робот</translation>
-    </message>
-    <message>
         <source>Rocket</source>
         <translation>Ракета</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation>Настройки</translation>
     </message>
     <message>
         <source>Key</source>
@@ -2830,10 +2774,6 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Сервер</translation>
     </message>
     <message>
-        <source>Server rack</source>
-        <translation>Серверная стойка</translation>
-    </message>
-    <message>
         <source>Hard drive</source>
         <translation>Жёсткий диск</translation>
     </message>
@@ -2844,10 +2784,6 @@ Ctrl+щелчок, чтобы открыть</translation>
     <message>
         <source>Memory</source>
         <translation>Память</translation>
-    </message>
-    <message>
-        <source>Router</source>
-        <translation>Роутер</translation>
     </message>
     <message>
         <source>Wi-Fi</source>
@@ -2862,10 +2798,6 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Клавиатура</translation>
     </message>
     <message>
-        <source>Mouse</source>
-        <translation>Мышь</translation>
-    </message>
-    <message>
         <source>Printer</source>
         <translation>Принтер</translation>
     </message>
@@ -2878,20 +2810,8 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Планшет</translation>
     </message>
     <message>
-        <source>Smartwatch</source>
-        <translation>Умные часы</translation>
-    </message>
-    <message>
         <source>Headphones</source>
         <translation>Наушники</translation>
-    </message>
-    <message>
-        <source>Headset</source>
-        <translation>Гарнитура</translation>
-    </message>
-    <message>
-        <source>Speaker</source>
-        <translation>Колонка</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -2906,38 +2826,6 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Фотоаппарат</translation>
     </message>
     <message>
-        <source>Video camera</source>
-        <translation>Видеокамера</translation>
-    </message>
-    <message>
-        <source>Battery</source>
-        <translation>Батарея</translation>
-    </message>
-    <message>
-        <source>Plug</source>
-        <translation>Вилка</translation>
-    </message>
-    <message>
-        <source>Temperature sensor</source>
-        <translation>Датчик температуры</translation>
-    </message>
-    <message>
-        <source>Humidity sensor</source>
-        <translation>Датчик влажности</translation>
-    </message>
-    <message>
-        <source>Pressure sensor</source>
-        <translation>Датчик давления</translation>
-    </message>
-    <message>
-        <source>CO2 sensor</source>
-        <translation>Датчик CO2</translation>
-    </message>
-    <message>
-        <source>Speedometer</source>
-        <translation>Спидометр</translation>
-    </message>
-    <message>
         <source>Antenna</source>
         <translation>Антенна</translation>
     </message>
@@ -2946,20 +2834,12 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Бег</translation>
     </message>
     <message>
-        <source>Trail running</source>
-        <translation>Трейлраннинг</translation>
-    </message>
-    <message>
         <source>Walking</source>
         <translation>Ходьба</translation>
     </message>
     <message>
         <source>Hiking</source>
         <translation>Хайкинг</translation>
-    </message>
-    <message>
-        <source>Mountaineering</source>
-        <translation>Альпинизм</translation>
     </message>
     <message>
         <source>Gym</source>
@@ -2974,40 +2854,12 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Плавание</translation>
     </message>
     <message>
-        <source>Skiing</source>
-        <translation>Лыжи</translation>
-    </message>
-    <message>
-        <source>Rowing</source>
-        <translation>Гребля</translation>
-    </message>
-    <message>
-        <source>Paddling</source>
-        <translation>Сап и каноэ</translation>
-    </message>
-    <message>
-        <source>Rafting</source>
-        <translation>Рафтинг</translation>
-    </message>
-    <message>
-        <source>Canyoning</source>
-        <translation>Каньонинг</translation>
-    </message>
-    <message>
         <source>Stopwatch</source>
         <translation>Секундомер</translation>
     </message>
     <message>
-        <source>Activity</source>
-        <translation>Активность</translation>
-    </message>
-    <message>
         <source>Trophy</source>
         <translation>Кубок</translation>
-    </message>
-    <message>
-        <source>Award</source>
-        <translation>Награда</translation>
     </message>
     <message>
         <source>Backpack</source>
@@ -3018,16 +2870,8 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Компас</translation>
     </message>
     <message>
-        <source>Binoculars</source>
-        <translation>Бинокль</translation>
-    </message>
-    <message>
         <source>Vacation</source>
         <translation>Отпуск</translation>
-    </message>
-    <message>
-        <source>Luggage</source>
-        <translation>Багаж</translation>
     </message>
     <message>
         <source>Flight</source>
@@ -3046,14 +2890,6 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Машина</translation>
     </message>
     <message>
-        <source>Scooter</source>
-        <translation>Самокат</translation>
-    </message>
-    <message>
-        <source>Fuel</source>
-        <translation>Топливо</translation>
-    </message>
-    <message>
         <source>Ticket</source>
         <translation>Билет</translation>
     </message>
@@ -3070,28 +2906,12 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Место</translation>
     </message>
     <message>
-        <source>Route</source>
-        <translation>Маршрут</translation>
-    </message>
-    <message>
         <source>Umbrella</source>
         <translation>Зонт</translation>
     </message>
     <message>
-        <source>Sunglasses</source>
-        <translation>Солнечные очки</translation>
-    </message>
-    <message>
-        <source>Sunrise</source>
-        <translation>Рассвет</translation>
-    </message>
-    <message>
         <source>Lifebuoy</source>
         <translation>Спасательный круг</translation>
-    </message>
-    <message>
-        <source>Postcard</source>
-        <translation>Открытка</translation>
     </message>
     <message>
         <source>Home</source>
@@ -3106,40 +2926,8 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Гостиная</translation>
     </message>
     <message>
-        <source>Bathroom</source>
-        <translation>Ванная</translation>
-    </message>
-    <message>
-        <source>Nursery</source>
-        <translation>Детская</translation>
-    </message>
-    <message>
-        <source>Hallway</source>
-        <translation>Прихожая</translation>
-    </message>
-    <message>
         <source>Lamp</source>
         <translation>Лампа</translation>
-    </message>
-    <message>
-        <source>Laundry</source>
-        <translation>Стирка</translation>
-    </message>
-    <message>
-        <source>Robot vacuum</source>
-        <translation>Робот-пылесос</translation>
-    </message>
-    <message>
-        <source>Air purifier</source>
-        <translation>Очиститель воздуха</translation>
-    </message>
-    <message>
-        <source>Bucket</source>
-        <translation>Ведро</translation>
-    </message>
-    <message>
-        <source>Trash bin</source>
-        <translation>Мусорное ведро</translation>
     </message>
     <message>
         <source>Recycling</source>
@@ -3158,18 +2946,6 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Инструменты</translation>
     </message>
     <message>
-        <source>Hammer</source>
-        <translation>Молоток</translation>
-    </message>
-    <message>
-        <source>Wrench</source>
-        <translation>Гаечный ключ</translation>
-    </message>
-    <message>
-        <source>Screwdriver</source>
-        <translation>Отвёртка</translation>
-    </message>
-    <message>
         <source>Painting</source>
         <translation>Покраска</translation>
     </message>
@@ -3186,28 +2962,12 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Готовка</translation>
     </message>
     <message>
-        <source>Recipe</source>
-        <translation>Рецепт</translation>
-    </message>
-    <message>
-        <source>Breakfast</source>
-        <translation>Завтрак</translation>
-    </message>
-    <message>
         <source>Coffee</source>
         <translation>Кофе</translation>
     </message>
     <message>
-        <source>Drink</source>
-        <translation>Напиток</translation>
-    </message>
-    <message>
         <source>Cake</source>
         <translation>Торт</translation>
-    </message>
-    <message>
-        <source>Cookie</source>
-        <translation>Печенье</translation>
     </message>
     <message>
         <source>Gift</source>
@@ -3234,16 +2994,8 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Музыка</translation>
     </message>
     <message>
-        <source>Record</source>
-        <translation>Пластинка</translation>
-    </message>
-    <message>
         <source>Film</source>
         <translation>Кино</translation>
-    </message>
-    <message>
-        <source>Video</source>
-        <translation>Видео</translation>
     </message>
     <message>
         <source>Games</source>
@@ -3270,10 +3022,6 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Деньги</translation>
     </message>
     <message>
-        <source>Coin</source>
-        <translation>Монета</translation>
-    </message>
-    <message>
         <source>Wallet</source>
         <translation>Кошелёк</translation>
     </message>
@@ -3286,16 +3034,8 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Банк</translation>
     </message>
     <message>
-        <source>Savings</source>
-        <translation>Накопления</translation>
-    </message>
-    <message>
         <source>Shopping</source>
         <translation>Покупки</translation>
-    </message>
-    <message>
-        <source>Shop</source>
-        <translation>Магазин</translation>
     </message>
     <message>
         <source>Receipt</source>
@@ -3346,16 +3086,8 @@ Ctrl+щелчок, чтобы открыть</translation>
         <translation>Снег</translation>
     </message>
     <message>
-        <source>Wind</source>
-        <translation>Ветер</translation>
-    </message>
-    <message>
         <source>Water</source>
         <translation>Вода</translation>
-    </message>
-    <message>
-        <source>Sea</source>
-        <translation>Море</translation>
     </message>
     <message>
         <source>Fire</source>

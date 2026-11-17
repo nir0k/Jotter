@@ -11,6 +11,7 @@
 #include "core/SyncEngine.h"
 #include "core/Tags.h"
 #include "editor/NoteEditor.h"
+#include "ui/Icons.h"
 #include "ui/Popups.h"
 #include "ui/Theme.h"
 
@@ -605,7 +606,7 @@ core::Result<void> MainWindow::chooseCollections(const QStringList &ids)
     for (const auto &[collection, depth] : core::collectionTree(m_session->collections())) {
         entries.append({.id = collection->id,
                         .label = collection->name,
-                        .iconName = collection->icon,
+                        .iconName = ui::collectionGlyph(collection->icon),
                         .color = collection->color,
                         .depth = depth,
                         .state = membership(counts.value(collection->id), ids.size())});

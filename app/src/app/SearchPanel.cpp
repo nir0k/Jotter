@@ -328,7 +328,7 @@ void SearchPanel::choose(Choosing list)
         for (const auto &[collection, depth] : core::collectionTree(m_collections)) {
             options.append({.key = collection->id,
                             .label = collection->name,
-                            .iconName = collection->icon,
+                            .iconName = ui::collectionGlyph(collection->icon),
                             .color = collection->color,
                             .depth = depth});
         }

@@ -50,6 +50,14 @@ QIcon icon(const QString &name, IconTone tone = IconTone::Idle,
 /// @param surface The surface the icon is drawn on.
 QIcon icon(const QString &name, const QColor &color, IconSurface surface = IconSurface::Content);
 
+/// Returns the glyph a collection is drawn with: its stored icon name when Jotter has that glyph,
+/// otherwise `Folder`, such as for a name the icon picker no longer offers. The stored name itself
+/// is not changed.
+///
+/// @param name The icon name the collection stores.
+/// @return @p name, or `Folder` when Jotter has no glyph of that name.
+QString collectionGlyph(const QString &name);
+
 /// Draws a glyph in a given colour. Unlike icon(), it reads nothing from the theme and makes no
 /// pixmaps, so it also draws on worker threads, such as into an export.
 ///
