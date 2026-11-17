@@ -146,6 +146,14 @@ QIcon icon(const QString &name, const QColor &color, IconSurface surface)
     return QIcon(new TintedIconEngine(std::move(source), IconTone::Idle, surface, color));
 }
 
+QString collectionGlyph(const QString &name)
+{
+    if (!name.isEmpty() && QFile::exists(QStringLiteral(":/icons/%1.svg").arg(name))) {
+        return name;
+    }
+    return QStringLiteral("Folder");
+}
+
 void paintGlyph(QPainter &painter, const QRectF &rect, const QString &name, const QColor &color)
 {
     QByteArray source = glyphSource(name);

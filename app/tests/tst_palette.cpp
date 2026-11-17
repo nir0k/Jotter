@@ -1,3 +1,4 @@
+#include "ui/Icons.h"
 #include "ui/Palette.h"
 #include "ui/Popups.h"
 #include "ui/StyleSheet.h"
@@ -9,7 +10,7 @@
 #include <QTest>
 
 /// Checks the interface look: stored keys, variant resolution, derived roles and the
-/// generated style sheet, and the glyphs of the icon picker.
+/// generated style sheet, the glyphs of the icon picker and how stored icon names are drawn.
 class PaletteTest : public QObject
 {
     Q_OBJECT
@@ -85,10 +86,27 @@ private Q_SLOTS:
     void pickerGlyphs()
     {
         const QStringList &glyphs = ui::IconPicker::glyphs();
+        QCOMPARE(glyphs.size(), 120);
         QCOMPARE(QSet<QString>(glyphs.cbegin(), glyphs.cend()).size(), glyphs.size());
         for (const QString &name : glyphs) {
             QVERIFY2(QFile::exists(QStringLiteral(":/icons/%1.svg").arg(name)), qPrintable(name));
         }
+    }
+
+    /// A stored icon name is drawn only with Jotter's glyph of that name: a name the picker no
+    /// longer offers and Jotter no longer has draws nothing, and a collection shows Folder
+    /// instead. Glyphs the interface draws stay although the picker no longer offers them.
+    void storedIconNames()
+    {
+        QTest::ignoreMessage(QtWarningMsg, "Unknown icon Office");
+        QVERIFY(ui::icon(QStringLiteral("Office")).isNull());
+        QVERIFY(!ui::icon(QStringLiteral("Favorite")).isNull());
+        QVERIFY(!ui::icon(QStringLiteral("Settings")).isNull());
+
+        QCOMPARE(ui::collectionGlyph(QStringLiteral("Calendar")), QStringLiteral("Calendar"));
+        QCOMPARE(ui::collectionGlyph(QStringLiteral("Settings")), QStringLiteral("Settings"));
+        QCOMPARE(ui::collectionGlyph(QStringLiteral("Bin")), QStringLiteral("Folder"));
+        QCOMPARE(ui::collectionGlyph(QString()), QStringLiteral("Folder"));
     }
 };
 

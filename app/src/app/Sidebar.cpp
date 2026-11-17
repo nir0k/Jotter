@@ -499,7 +499,8 @@ void Sidebar::reload()
             if (favorite.kind == core::FavoriteRef::Kind::Collection) {
                 if (const core::Collection *collection = byId.value(favorite.id)) {
                     favorites->appendRow(makeItem(View::Kind::Collection, collection->id,
-                                                  collection->name, collection->icon, 0,
+                                                  collection->name,
+                                                  ui::collectionGlyph(collection->icon), 0,
                                                   collection->color.value_or(QString())));
                 }
             } else if (const auto note = notes.constFind(favorite.id); note != notes.cend()) {
@@ -527,8 +528,9 @@ void Sidebar::reload()
         index.collectionCounts(collections).value_or(QHash<QString, int>());
     for (const core::Collection &collection : collections) {
         QStandardItem *item =
-            makeItem(View::Kind::Collection, collection.id, collection.name, collection.icon,
-                     counts.value(collection.id), collection.color.value_or(QString()));
+            makeItem(View::Kind::Collection, collection.id, collection.name,
+                     ui::collectionGlyph(collection.icon), counts.value(collection.id),
+                     collection.color.value_or(QString()));
         // Collections in the tree are renamed in place and moved by dragging.
         const bool writable = !m_session->library().isReadOnly();
         item->setEditable(writable);

@@ -238,11 +238,6 @@
           "use": "Statistics destination"
         },
         {
-          "name": "Trend",
-          "bootstrap": "graph-up",
-          "use": "Trend; activity integration fallback"
-        },
-        {
           "name": "People",
           "bootstrap": "people",
           "use": "Members, sharing"
@@ -291,11 +286,6 @@
           "name": "AllNotes",
           "bootstrap": "journals",
           "use": "All notes or documents of a library"
-        },
-        {
-          "name": "QuickNote",
-          "bootstrap": "lightning-charge",
-          "use": "Quick capture of a short note"
         },
         {
           "name": "Sidebar",
@@ -619,11 +609,6 @@
           "use": "Text above and below an image"
         },
         {
-          "name": "Notifications",
-          "bootstrap": "bell",
-          "use": "Notifications"
-        },
-        {
           "name": "Laptop",
           "bootstrap": "laptop",
           "use": "Office, study"
@@ -637,40 +622,6 @@
           "name": "Tv",
           "bootstrap": "tv",
           "use": "Media room, television"
-        },
-        {
-          "name": "Battery",
-          "bootstrap": "battery-full",
-          "use": "Battery level; a charged battery"
-        },
-        {
-          "name": "Integrations",
-          "bootstrap": "plug",
-          "use": "Integrations menu entry"
-        },
-        {
-          "name": "Temperature",
-          "bootstrap": "thermometer-half",
-          "use": "Temperature reading or setting"
-        },
-        {
-          "name": "Humidity",
-          "bootstrap": "moisture",
-          "use": "Relative humidity reading"
-        },
-        {
-          "name": "Pressure",
-          "custom": "pressure",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Atmospheric pressure reading"
-        },
-        {
-          "name": "Co2",
-          "custom": "co2",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Carbon dioxide (CO2) concentration"
         },
         {
           "name": "Walk",
@@ -694,60 +645,11 @@
           "use": "Running"
         },
         {
-          "name": "TrailRun",
-          "custom": "activity-trail-run",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Trail running"
-        },
-        {
           "name": "Bike",
           "custom": "activity-bike",
           "source": "Custom",
           "license": "MIT",
           "use": "Cycling"
-        },
-        {
-          "name": "Mountaineering",
-          "custom": "activity-mountaineering",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Mountain climbing"
-        },
-        {
-          "name": "Canyoning",
-          "custom": "activity-canyoning",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Canyoning"
-        },
-        {
-          "name": "NordicSki",
-          "custom": "activity-nordic-ski",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Nordic skiing"
-        },
-        {
-          "name": "Rowing",
-          "custom": "activity-rowing",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Rowing"
-        },
-        {
-          "name": "Whitewater",
-          "custom": "activity-whitewater",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Whitewater rafting and kayaking"
-        },
-        {
-          "name": "Flatwater",
-          "custom": "activity-flatwater",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Flatwater paddling, stand-up paddle"
         },
         {
           "name": "Swim",
@@ -771,49 +673,9 @@
           "use": "Living room"
         },
         {
-          "name": "Bathtub",
-          "custom": "bathtub",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Bathroom"
-        },
-        {
-          "name": "Crib",
-          "custom": "crib",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Children's room, nursery"
-        },
-        {
-          "name": "DoorOpen",
-          "bootstrap": "door-open",
-          "use": "Hallway, entrance"
-        },
-        {
           "name": "Lamp",
           "bootstrap": "lamp",
           "use": "A room in general, lighting"
-        },
-        {
-          "name": "WashingMachine",
-          "custom": "washing-machine",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Laundry"
-        },
-        {
-          "name": "RobotVacuum",
-          "custom": "robot-vacuum",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Robot vacuum appliance"
-        },
-        {
-          "name": "AirPurifier",
-          "custom": "air-purifier",
-          "source": "Custom",
-          "license": "MIT",
-          "use": "Air purifier appliance"
         },
         {
           "name": "CookingPot",
@@ -833,39 +695,9 @@
           "use": "Pinned or important item"
         },
         {
-          "name": "Hourglass",
-          "bootstrap": "hourglass-split",
-          "use": "Waiting, deadline, something in progress"
-        },
-        {
-          "name": "Sparkles",
-          "bootstrap": "stars",
-          "use": "Ideas, inspiration, something new"
-        },
-        {
-          "name": "Target",
-          "bootstrap": "bullseye",
-          "use": "Goal"
-        },
-        {
           "name": "Kanban",
           "bootstrap": "kanban",
           "use": "Kanban board, project stages"
-        },
-        {
-          "name": "Presentation",
-          "bootstrap": "easel2",
-          "use": "Presentation, talk"
-        },
-        {
-          "name": "Workspace",
-          "bootstrap": "person-workspace",
-          "use": "Workplace, desk"
-        },
-        {
-          "name": "Office",
-          "bootstrap": "building",
-          "use": "Office, company"
         },
         {
           "name": "Clipboard",
@@ -876,11 +708,6 @@
           "name": "Calculator",
           "bootstrap": "calculator",
           "use": "Calculations, accounting"
-        },
-        {
-          "name": "Megaphone",
-          "bootstrap": "megaphone",
-          "use": "Announcement, marketing"
         },
         {
           "name": "Journal",
@@ -908,24 +735,9 @@
           "use": "Database"
         },
         {
-          "name": "Diagram",
-          "bootstrap": "diagram-3",
-          "use": "Structure, hierarchy, architecture"
-        },
-        {
-          "name": "Robot",
-          "bootstrap": "robot",
-          "use": "Automation, bots, AI"
-        },
-        {
           "name": "Desktop",
           "bootstrap": "pc-display",
           "use": "Desktop computer"
-        },
-        {
-          "name": "ServerRack",
-          "bootstrap": "hdd-rack",
-          "use": "Server rack, data centre"
         },
         {
           "name": "HardDrive",
@@ -943,11 +755,6 @@
           "use": "Memory module"
         },
         {
-          "name": "Router",
-          "bootstrap": "router",
-          "use": "Router, home network"
-        },
-        {
           "name": "Wifi",
           "bootstrap": "wifi",
           "use": "Wi-Fi, wireless network"
@@ -956,11 +763,6 @@
           "name": "UsbDrive",
           "bootstrap": "usb-drive",
           "use": "USB drive"
-        },
-        {
-          "name": "Mouse",
-          "bootstrap": "mouse",
-          "use": "Computer mouse"
         },
         {
           "name": "Printer",
@@ -978,39 +780,14 @@
           "use": "Tablet"
         },
         {
-          "name": "Smartwatch",
-          "bootstrap": "smartwatch",
-          "use": "Smartwatch"
-        },
-        {
           "name": "Headphones",
           "bootstrap": "headphones",
           "use": "Headphones"
         },
         {
-          "name": "Headset",
-          "bootstrap": "headset",
-          "use": "Headset, support calls"
-        },
-        {
-          "name": "Speaker",
-          "bootstrap": "speaker",
-          "use": "Speaker"
-        },
-        {
           "name": "Microphone",
           "bootstrap": "mic",
           "use": "Microphone, recording"
-        },
-        {
-          "name": "VideoCamera",
-          "bootstrap": "camera-video",
-          "use": "Video camera"
-        },
-        {
-          "name": "Gauge",
-          "bootstrap": "speedometer",
-          "use": "Speedometer, measurements"
         },
         {
           "name": "Antenna",
@@ -1023,16 +800,6 @@
           "use": "Stopwatch, timing"
         },
         {
-          "name": "Pulse",
-          "bootstrap": "activity",
-          "use": "Activity, heart rate"
-        },
-        {
-          "name": "Award",
-          "bootstrap": "award",
-          "use": "Award, achievement"
-        },
-        {
           "name": "Backpack",
           "bootstrap": "backpack",
           "use": "Backpack, outdoor trip"
@@ -1043,24 +810,9 @@
           "use": "Compass, orientation"
         },
         {
-          "name": "Binoculars",
-          "bootstrap": "binoculars",
-          "use": "Binoculars, observation"
-        },
-        {
           "name": "Suitcase",
           "bootstrap": "suitcase",
           "use": "Vacation"
-        },
-        {
-          "name": "Luggage",
-          "bootstrap": "luggage",
-          "use": "Luggage, packing list"
-        },
-        {
-          "name": "Signpost",
-          "bootstrap": "signpost-2",
-          "use": "Route, directions"
         },
         {
           "name": "Train",
@@ -1073,16 +825,6 @@
           "use": "Bus"
         },
         {
-          "name": "Scooter",
-          "bootstrap": "scooter",
-          "use": "Scooter"
-        },
-        {
-          "name": "Fuel",
-          "bootstrap": "fuel-pump",
-          "use": "Fuel, petrol station"
-        },
-        {
           "name": "Ticket",
           "bootstrap": "ticket-perforated",
           "use": "Ticket, event"
@@ -1093,34 +835,9 @@
           "use": "Umbrella, rain"
         },
         {
-          "name": "Sunglasses",
-          "bootstrap": "sunglasses",
-          "use": "Sunglasses, beach"
-        },
-        {
-          "name": "Sunrise",
-          "bootstrap": "sunrise",
-          "use": "Sunrise, morning"
-        },
-        {
-          "name": "Postcard",
-          "bootstrap": "postcard",
-          "use": "Postcard, greetings"
-        },
-        {
           "name": "LifeBuoy",
           "bootstrap": "life-preserver",
           "use": "Lifebuoy, help, safety"
-        },
-        {
-          "name": "Bucket",
-          "bootstrap": "bucket",
-          "use": "Bucket, cleaning"
-        },
-        {
-          "name": "Bin",
-          "bootstrap": "trash2",
-          "use": "Rubbish bin, household waste (not the Delete action)"
         },
         {
           "name": "Recycle",
@@ -1138,21 +855,6 @@
           "use": "Bag, purchases"
         },
         {
-          "name": "Hammer",
-          "bootstrap": "hammer",
-          "use": "Hammer, repairs"
-        },
-        {
-          "name": "Wrench",
-          "bootstrap": "wrench-adjustable",
-          "use": "Wrench, maintenance"
-        },
-        {
-          "name": "Screwdriver",
-          "bootstrap": "screwdriver",
-          "use": "Screwdriver, assembly"
-        },
-        {
           "name": "PaintBucket",
           "bootstrap": "paint-bucket",
           "use": "Painting, decorating"
@@ -1168,29 +870,9 @@
           "use": "Food, restaurant"
         },
         {
-          "name": "Cup",
-          "bootstrap": "cup-straw",
-          "use": "Drink"
-        },
-        {
-          "name": "Egg",
-          "bootstrap": "egg-fried",
-          "use": "Breakfast"
-        },
-        {
           "name": "Cake",
           "bootstrap": "cake",
           "use": "Cake, birthday"
-        },
-        {
-          "name": "Cookie",
-          "bootstrap": "cookie",
-          "use": "Cookie, sweets"
-        },
-        {
-          "name": "MeasuringCup",
-          "bootstrap": "measuring-cup",
-          "use": "Recipe, baking"
         },
         {
           "name": "Balloon",
@@ -1201,16 +883,6 @@
           "name": "Brush",
           "bootstrap": "brush",
           "use": "Brush, drawing"
-        },
-        {
-          "name": "Vinyl",
-          "bootstrap": "vinyl",
-          "use": "Record, music collection"
-        },
-        {
-          "name": "CameraReels",
-          "bootstrap": "camera-reels",
-          "use": "Video, filming"
         },
         {
           "name": "Gamepad",
@@ -1238,11 +910,6 @@
           "use": "Bank card"
         },
         {
-          "name": "PiggyBank",
-          "bootstrap": "piggy-bank",
-          "use": "Savings"
-        },
-        {
           "name": "Bank",
           "bootstrap": "bank",
           "use": "Bank"
@@ -1251,16 +918,6 @@
           "name": "Receipt",
           "bootstrap": "receipt",
           "use": "Receipt, bills"
-        },
-        {
-          "name": "Coin",
-          "bootstrap": "coin",
-          "use": "Coin, small expenses"
-        },
-        {
-          "name": "Shop",
-          "bootstrap": "shop",
-          "use": "Shop"
         },
         {
           "name": "HeartPulse",
@@ -1291,16 +948,6 @@
           "name": "Rain",
           "bootstrap": "cloud-rain",
           "use": "Rain"
-        },
-        {
-          "name": "Wind",
-          "bootstrap": "wind",
-          "use": "Wind"
-        },
-        {
-          "name": "Waves",
-          "bootstrap": "water",
-          "use": "Sea, waves"
         },
         {
           "name": "Gym",
