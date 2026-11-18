@@ -46,16 +46,34 @@
 #include <QVBoxLayout>
 
 #include <tuple>
+#include <utility>
 
 namespace editor {
 
+namespace {
+
+/// Creates an empty note document with the editor's margin, body font and indent.
+std::unique_ptr<QTextDocument> newNoteDocument()
+{
+    auto document = std::make_unique<QTextDocument>();
+    const ui::Theme &theme = *ui::Theme::current();
+    document->setDocumentMargin(0);
+    document->setDefaultFont(theme.font(ui::TextRole::Body));
+    document->setIndentWidth(theme.px(2.0));
+    return document;
+}
+
+} // namespace
+
 /// One live note shared by all of its views; the weak registry retains no closed documents.
+/// Loading a note replaces the document and its presenter (see NoteEditor::load()).
 struct NoteBuffer
 {
     QPointer<core::LibrarySession> session;
     std::optional<core::Note> note;
     QString title;
-    std::unique_ptr<QTextDocument> document = std::make_unique<QTextDocument>();
+    std::unique_ptr<QTextDocument> document = newNoteDocument();
+    /// The presenter of the document, owned by it.
     Presenter *presenter = new Presenter(document.get());
     QTimer autosave;
     QSet<NoteEditor *> views;
@@ -66,12 +84,10 @@ struct NoteBuffer
     /// Creates one autosave timer for this document, independent of the active view.
     NoteBuffer()
     {
-        document->setDocumentMargin(0);
-        document->setDefaultFont(ui::Theme::current()->font(ui::TextRole::Body));
-        document->setIndentWidth(ui::Theme::current()->px(2.0));
         autosave.setSingleShot(true);
         autosave.setInterval(1000);
-        QObject::connect(&autosave, &QTimer::timeout, document.get(), [this] {
+        // The timer is the context, as the document is replaced whenever the note is loaded.
+        QObject::connect(&autosave, &QTimer::timeout, &autosave, [this] {
             if (!views.isEmpty()) {
                 (*views.cbegin())->saveNow();
             }
@@ -1048,13 +1064,28 @@ void NoteEditor::load(const core::Note &note)
     m_buffer->note = note;
     m_buffer->title = note.meta.title;
     m_title->setText(note.meta.title);
-    m_text->setAttachmentContext(m_session->library().root(), note.meta.id);
+    // A document a view has laid out is laid out again at every insertion and every change of
+    // highlighting, which makes filling it grow with the square of its size. The note is
+    // filled and highlighted in a new document that no view shows yet, which then replaces the
+    // old one in every view. Filling it is not an edit, so no view schedules a save.
+    std::unique_ptr<QTextDocument> document = newNoteDocument();
+    auto *presenter = new Presenter(document.get());
     {
-        // Filling the document is not an edit: it must not schedule a save.
-        const QSignalBlocker blocker(m_text->document());
-        readBody(*m_text->document(), note.body);
+        // The presenter highlights the whole document once it is filled.
+        const QSignalBlocker blocker(document.get());
+        readBody(*document, note.body);
     }
-    m_presenter->rehighlight();
+    presenter->rehighlight();
+    // The old document lives until no view shows it.
+    const std::unique_ptr<QTextDocument> previous =
+        std::exchange(m_buffer->document, std::move(document));
+    m_buffer->presenter = presenter;
+    for (NoteEditor *view : std::as_const(m_buffer->views)) {
+        view->m_text->setNoteDocument(m_buffer->document.get());
+        view->m_presenter = presenter;
+    }
+    // The views share the document's image handler, which needs the note's folder.
+    m_text->setAttachmentContext(m_session->library().root(), note.meta.id);
     m_notePicker->setExcluded(note.meta.id);
     updateLinkedNotes();
     m_text->document()->setModified(false);
@@ -1255,8 +1286,12 @@ void NoteEditor::updateReadOnly()
     setEnabled(m_session == nullptr || !m_session->isMutating());
     QString reason;
     if (m_buffer->note && m_session != nullptr) {
-        if (m_session->library().isReadOnly()) {
+        const core::ReadOnlyReason readOnly = m_session->library().readOnlyReason();
+        if (readOnly == core::ReadOnlyReason::NewerFormat) {
             reason = tr("This library was made by a newer version of Jotter and is read-only.");
+        } else if (readOnly == core::ReadOnlyReason::NoPermission) {
+            reason = tr("You may not change the files of this library folder, so it is "
+                        "read-only.");
         } else if (m_session->isMutating()) {
             reason = tr("The library is being updated. Editing will resume when it finishes.");
         } else if (!m_session->isAvailable()) {

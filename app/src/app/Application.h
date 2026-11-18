@@ -52,6 +52,8 @@ private:
     bool runFirstStart(const QString &problem);
 
     void showSettings();
+    /// Opens Settings on the Library section, which lists the note files that cannot be read.
+    void showProblems();
     /// Starts the synchronisation of the open library with its saved connection and secret.
     void startSync();
     /// Shows the scheduler's state in the main window and in Settings → Sync.

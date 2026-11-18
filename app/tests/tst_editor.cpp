@@ -991,8 +991,16 @@ private Q_SLOTS:
                                << u"<p> one  two</p>\n<p>three</p>\n<p></p>\n<p></p>"_s;
         QTest::newRow("literal html")
             << u"<b>literal</b>"_s << u"<p>&lt;b&gt;literal&lt;/b&gt;</p>"_s;
-        QTest::newRow("remote image") << u"![description](https://example.com/a.png) **end**"_s
-                                      << u"<p>description <strong>end</strong></p>"_s;
+        QTest::newRow("remote image")
+            << u"![description](https://example.com/a.png) **end**"_s
+            << u"<p><a href=\"https://example.com/a.png\">description</a> <strong>end</strong></p>"_s;
+        QTest::newRow("remote image without description")
+            << u"![](https://example.com/a.png) **end**"_s
+            << u"<p><a href=\"https://example.com/a.png\">https://example.com/a.png</a> "
+               u"<strong>end</strong></p>"_s;
+        QTest::newRow("remote image in a link")
+            << u"[![description](https://example.com/a.png)](https://example.org) **end**"_s
+            << u"<p><a href=\"https://example.org\">description</a> <strong>end</strong></p>"_s;
         QTest::newRow("table")
             << u"| A | B |\n|---|---|\n|x|y|"_s
             << u"<table>\n<thead>\n<tr><th><p>A</p></th><th><p>B</p></th></tr>\n</thead>\n<tbody>\n<tr><td><p>x</p></td><td><p>y</p></td></tr>\n</tbody>\n</table>"_s;

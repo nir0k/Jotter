@@ -406,15 +406,27 @@ private:
         m_spanEnds.append(close);
     }
 
-    /// Closes the element of an inline span, writing an image once its description ends.
+    /// Closes the element of an inline span, writing an image once its description ends. An
+    /// image on the web is not downloaded: outside a link it becomes a link to the picture,
+    /// named by its description or, without one, by its address.
     void leaveSpan(MD_SPANTYPE type)
     {
         if (m_image > 0) {
             m_image -= type == MD_SPAN_IMG ? 1 : 0;
             if (m_image == 0) {
-                html += QStringLiteral("<img src=\"%1\" alt=\"%2\">")
-                            .arg(core::html::escapeAttribute(m_imageSource),
-                                 core::html::escapeAttribute(m_imageText));
+                const QString href = core::normaliseLink(m_imageSource);
+                const bool inLink = m_spanEnds.contains(QStringLiteral("</a>"));
+                if (!href.isEmpty() && !inLink) {
+                    const QString name = m_imageText.simplified();
+                    linked = true;
+                    html += QStringLiteral("<a href=\"%1\">%2</a>")
+                                .arg(core::html::escapeAttribute(href),
+                                     core::html::escapeText(name.isEmpty() ? href : name));
+                } else {
+                    html += QStringLiteral("<img src=\"%1\" alt=\"%2\">")
+                                .arg(core::html::escapeAttribute(m_imageSource),
+                                     core::html::escapeAttribute(m_imageText));
+                }
             }
             return;
         }

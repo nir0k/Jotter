@@ -278,6 +278,11 @@ void SettingsDialog::updateTrash()
     }
 }
 
+void SettingsDialog::showSection(Section section)
+{
+    m_sections->setCurrentRow(static_cast<int>(section));
+}
+
 QWidget *SettingsDialog::buildLibrary()
 {
     m_locationTitle = new QLabel;
@@ -686,9 +691,9 @@ void SettingsDialog::retranslate()
     m_trashHint->setText(tr("How long deleted notes stay in the trash before they are deleted "
                             "permanently. The setting belongs to the library."));
     m_rulesTitle->setText(tr("Rules"));
-    m_rulesHint->setText(tr("Rules file notes into collections by their title and tags. They run "
-                            "in this order when a note is created and when its title or tags "
-                            "change. They belong to the library and follow it to other devices."));
+    m_rulesHint->setText(tr("Rules file notes into collections by their tags. They run in this "
+                            "order when a note is created and when its tags change. They belong "
+                            "to the library and follow it to other devices."));
     m_rulesEmpty->setText(tr("No rules yet."));
     m_newRule->setText(tr("New rule…"));
     m_captureTitle->setText(tr("New note"));
