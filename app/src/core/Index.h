@@ -97,6 +97,8 @@ struct ScanReport
     int removed = 0;
     /// Files read again because their size or modification time changed.
     int read = 0;
+    /// Unreadable files recorded, read again or gone, which changes the list of problems.
+    int problems = 0;
 };
 
 /// The local search index of a library: a SQLite database derived from the
@@ -156,8 +158,9 @@ public:
     /// @param collections The collection tree, for collection names and the descendants of the
     ///        collection filter.
     /// @param sort The order when nothing ranks the notes: a query without words to find.
-    /// @return Notes ranked by relevance (BM25), then by updated time, with the fragment of
-    ///         their text around the matches; or Io.
+    /// @return Notes ranked by relevance (BM25), then by updated time; the first 100 notes
+    ///         matched in their text show the fragment of it around the matches, the others the
+    ///         start of their text. Or Io.
     Result<QList<NoteSummary>> search(const NoteFilter &filter, const Search &search,
                                       const QList<Collection> &collections,
                                       const NoteSort &sort) const;

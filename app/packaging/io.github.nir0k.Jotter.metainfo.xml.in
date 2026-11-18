@@ -22,12 +22,12 @@
     <screenshot type="default">
       <caption>Collections, the note list and a note in the editor</caption>
       <caption xml:lang="ru">Коллекции, список заметок и заметка в редакторе</caption>
-      <image>https://raw.githubusercontent.com/nir0k/Jotter/main/docs/screenshots/main.png</image>
+      <image>https://raw.githubusercontent.com/nir0k/Jotter/v@PROJECT_VERSION@/docs/screenshots/main.png</image>
     </screenshot>
     <screenshot>
       <caption>A note with a code block in the dark theme</caption>
       <caption xml:lang="ru">Заметка с блоком кода в тёмной теме</caption>
-      <image>https://raw.githubusercontent.com/nir0k/Jotter/main/docs/screenshots/editor-dark.png</image>
+      <image>https://raw.githubusercontent.com/nir0k/Jotter/v@PROJECT_VERSION@/docs/screenshots/editor-dark.png</image>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.1"/>

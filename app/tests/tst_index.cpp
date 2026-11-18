@@ -85,21 +85,34 @@ private Q_SLOTS:
         QCOMPARE(notes->first().snippet, QStringLiteral("B body"));
     }
 
-    /// A damaged file is listed as a problem instead of a note, and leaves the list once fixed.
+    /// A damaged file is listed as a problem instead of a note, and leaves the list once fixed
+    /// or removed; the scan report counts each change of the list.
     void problemsComeAndGo()
     {
         const core::Note note = noteWith(QStringLiteral("Fine"));
         const QString path = m_library->notePath(note.meta.id);
         QVERIFY(core::writeFileAtomic(path, "<html>not a note</html>"));
-        QVERIFY(m_index->scan(*m_library));
+        auto report = m_index->scan(*m_library);
+        QVERIFY(report);
+        QCOMPARE(report->problems, 1);
         QCOMPARE(m_index->problems()->size(), 1);
         QCOMPARE(m_index->count({}).value(), 0);
+        QCOMPARE(m_index->scan(*m_library)->problems, 0);
 
         ageFile(path);
         QVERIFY(m_library->writeNote(note));
-        QVERIFY(m_index->scan(*m_library));
+        report = m_index->scan(*m_library);
+        QVERIFY(report);
+        QCOMPARE(report->problems, 1);
         QVERIFY(m_index->problems()->isEmpty());
         QCOMPARE(m_index->count({}).value(), 1);
+
+        const QString other = m_library->notePath(core::newId());
+        QVERIFY(core::writeFileAtomic(other, "<html>not a note</html>"));
+        QCOMPARE(m_index->scan(*m_library)->problems, 1);
+        QVERIFY(QFile::remove(other));
+        QCOMPARE(m_index->scan(*m_library)->problems, 1);
+        QVERIFY(m_index->problems()->isEmpty());
     }
 
     /// Archived and trashed notes leave ordinary views,

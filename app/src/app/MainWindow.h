@@ -5,6 +5,7 @@
 #include "editor/NoteAction.h"
 
 #include <QMainWindow>
+#include <QSet>
 
 namespace core {
 class LibrarySession;
@@ -55,6 +56,9 @@ public:
 
 Q_SIGNALS:
     void settingsRequested();
+    /// Emitted on Show in the notice about note files that cannot be read, to list them in
+    /// Settings → Library.
+    void problemsRequested();
     /// Emitted on Sync now (`F5`) and on the sidebar's sync status.
     void syncRequested();
 
@@ -74,7 +78,17 @@ private:
     void showView(const View &view);
     /// Fills the list for the current view; safe to call while a refresh is running.
     void refreshList();
+    /// Lists the notes of the current view at once, or starts its search on a worker thread,
+    /// so a search through many notes never blocks the window.
     void fillList();
+    /// Runs a search on a worker thread with an index of its own and shows its notes when it
+    /// ends, unless the list was filled again meanwhile: then the list is filled anew.
+    void startSearch(const View &listed, const core::NoteFilter &filter, const core::Search &search,
+                     quint64 generation);
+    /// Shows the notes of a view, or of a search in it, and the editor's highlights of the
+    /// search's words.
+    void showNotes(const View &listed, core::Result<QList<core::NoteSummary>> notes,
+                   const core::Search &search);
     /// Opens a note in the editor pane without changing which pane a narrow window shows.
     void openNote(const QString &id);
     /// Selects and opens a note, switching to a view that holds it when the current one does
@@ -107,6 +121,9 @@ private:
     void emptyTrash();
     /// Tells whether notes can be created and changed now.
     bool isWritable() const;
+    /// Tells about note files the index could not read when files appear among them that were
+    /// not announced yet, offering to list them.
+    void announceProblems();
 
     Settings &m_settings;
     core::LibrarySession *m_session = nullptr;
@@ -118,6 +135,8 @@ private:
     Locator *m_locator;
     /// The notes links were followed from, the latest last.
     QStringList m_history;
+    /// The unreadable note files already announced for the open library.
+    QSet<QString> m_announcedProblems;
     View m_viewRef;
     QString m_noteId;
     Layout m_layout = Layout::Wide;
@@ -129,4 +148,8 @@ private:
     bool m_focusMode = false;
     bool m_refreshing = false;
     bool m_refreshPending = false;
+    /// Counts the fills of the list; a search that ends after a newer fill is not shown.
+    quint64 m_listGeneration = 0;
+    /// Whether a search runs on a worker thread; a newer one starts once it ends.
+    bool m_searchRunning = false;
 };

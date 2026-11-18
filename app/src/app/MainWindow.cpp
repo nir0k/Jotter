@@ -17,12 +17,16 @@
 
 #include <QApplication>
 #include <QCloseEvent>
+#include <QFutureWatcher>
 #include <QHash>
 #include <QKeyEvent>
 #include <QScopedValueRollback>
 #include <QSet>
 #include <QShortcut>
 #include <QSplitter>
+#include <QtConcurrentRun>
+
+#include <algorithm>
 
 namespace {
 
@@ -195,13 +199,18 @@ bool MainWindow::setSession(core::LibrarySession *session)
         m_session->disconnect(this);
     }
     m_session = session;
+    m_announcedProblems.clear();
+    // A search of the previous library that is still running is not shown.
+    ++m_listGeneration;
     m_sidebar->setSession(session);
     if (session == nullptr) {
         return true;
     }
+    // A scan reports its end with notesChanged, so that is when new problems are known.
     connect(session, &core::LibrarySession::notesChanged, this, [this] {
         m_sidebar->reload();
         refreshList();
+        announceProblems();
     });
     connect(session, &core::LibrarySession::noteSaved, this, [this] {
         m_sidebar->reload();
@@ -239,6 +248,8 @@ bool MainWindow::setSession(core::LibrarySession *session)
     const View last = View::fromKey(m_settings.lastView());
     m_sidebar->selectView(last);
     showView(last);
+    // The index may know problems already, when its scan ended before the window got the session.
+    announceProblems();
     return true;
 }
 
@@ -294,10 +305,60 @@ void MainWindow::fillList()
     const View listed = searching && m_list->searchesEverywhere() ? View() : m_viewRef;
     const core::NoteFilter filter =
         filterFor(listed, info, m_session->collections(), subcollections);
-    auto notes = searching
-                     ? m_session->index().search(filter, search, m_session->collections(), sort)
-                     : m_session->index().notes(filter, sort);
-    m_editor->setSearchTerms(searching && search.scopes.testFlag(core::SearchScope::Text)
+    const quint64 generation = ++m_listGeneration;
+    if (!searching) {
+        showNotes(listed, m_session->index().notes(filter, sort), search);
+    } else if (!m_searchRunning) {
+        // A running search sees the newer fill when it ends and fills the list again.
+        startSearch(listed, filter, search, generation);
+    }
+}
+
+void MainWindow::startSearch(const View &listed, const core::NoteFilter &filter,
+                             const core::Search &search, quint64 generation)
+{
+    using Found = core::Result<QList<core::NoteSummary>>;
+    auto *watcher = new QFutureWatcher<Found>(this);
+    m_searchRunning = true;
+    const core::LibrarySession *session = m_session;
+    connect(watcher, &QFutureWatcher<Found>::finished, this,
+            [this, watcher, session, listed, search, generation] {
+                watcher->deleteLater();
+                m_searchRunning = false;
+                if (m_session != session) {
+                    return;
+                }
+                if (generation != m_listGeneration) {
+                    refreshList();
+                    return;
+                }
+                {
+                    const QScopedValueRollback<bool> refreshing(m_refreshing, true);
+                    m_refreshPending = false;
+                    showNotes(listed, watcher->result(), search);
+                }
+                if (m_refreshPending) {
+                    refreshList();
+                }
+            });
+    // The worker opens its own connection to the index, as the interface's may not be shared
+    // between threads.
+    watcher->setFuture(QtConcurrent::run(
+        [path = core::Index::defaultPath(m_session->library().info().id), filter, search,
+         collections = m_session->collections(), sort = m_settings.noteSort()]() -> Found {
+            auto index = core::Index::open(path);
+            if (!index) {
+                return std::unexpected(index.error());
+            }
+            return index->search(filter, search, collections, sort);
+        }));
+}
+
+void MainWindow::showNotes(const View &listed, core::Result<QList<core::NoteSummary>> notes,
+                           const core::Search &search)
+{
+    const core::LibraryInfo &info = m_session->library().info();
+    m_editor->setSearchTerms(search.isActive() && search.scopes.testFlag(core::SearchScope::Text)
                                  ? core::parseQuery(search.query)
                                  : QList<core::SearchTerm>());
     if (!notes) {
@@ -353,7 +414,8 @@ void MainWindow::fillList()
     }
     m_list->setFavorites(favorites);
     m_list->setTagColors(info.tagColors);
-    m_list->setNotes(titleFor(listed, m_session->collections()), std::move(*notes), sort);
+    m_list->setNotes(titleFor(listed, m_session->collections()), std::move(*notes),
+                     m_settings.noteSort());
     m_list->selectNote(m_noteId);
     if (m_list->currentNote().isEmpty()) {
         m_editor->closeNote();
@@ -457,6 +519,26 @@ void MainWindow::locateNewNote(const QString &noteId)
 void MainWindow::setLocationsEnabled(bool enabled)
 {
     m_editor->setLocationsEnabled(enabled);
+}
+
+void MainWindow::announceProblems()
+{
+    const auto problems = m_session->index().problems();
+    if (!problems) {
+        return;
+    }
+    QSet<QString> files;
+    for (const core::Problem &problem : *problems) {
+        files.insert(problem.path);
+    }
+    const bool fresh = std::ranges::any_of(
+        files, [this](const QString &file) { return !m_announcedProblems.contains(file); });
+    m_announcedProblems = files;
+    if (fresh) {
+        m_toast->showMessage(
+            tr("%n note file(s) could not be read.", nullptr, static_cast<int>(files.size())),
+            tr("Show"), [this] { Q_EMIT problemsRequested(); });
+    }
 }
 
 bool MainWindow::isWritable() const

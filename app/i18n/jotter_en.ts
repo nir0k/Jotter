@@ -63,6 +63,13 @@
         </translation>
     </message>
     <message numerus="yes">
+        <source>%n note file(s) could not be read.</source>
+        <translation>
+            <numerusform>%n note file could not be read.</numerusform>
+            <numerusform>%n note files could not be read.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Rules filed %n note(s) into %1.</source>
         <translation>
             <numerusform>Rules filed %n note into %1.</numerusform>

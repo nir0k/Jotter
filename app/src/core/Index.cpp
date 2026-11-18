@@ -107,6 +107,11 @@ constexpr std::array DroppedTables{
 /// Weights of the title, text and tags columns in the relevance of a match.
 constexpr QLatin1StringView Relevance("bm25(notes_fts, 10.0, 1.0, 5.0)");
 
+/// The search results, from the best, that show the fragment of their text around the matches.
+/// Building a fragment reads and splits the note's text again, which costs about as much as the
+/// search itself, so the others keep the start of their text.
+constexpr int FragmentRows = 100;
+
 /// Mark the matching words of a fragment; they cannot occur in a note's text.
 constexpr QChar MatchStart(0x02);
 constexpr QChar MatchEnd(0x03);
@@ -749,6 +754,7 @@ Result<ScanReport> Index::scan(const Library &library, bool rebuild)
             if (auto ok = run(query); !ok) {
                 return abort(ok.error());
             }
+            report.problems += knownProblems.contains(file) ? 1 : 0;
             ++(known != knownNotes.constEnd() ? report.updated : report.added);
         } else {
             query.prepare(QStringLiteral("DELETE FROM notes WHERE file = ?"));
@@ -769,6 +775,7 @@ Result<ScanReport> Index::scan(const Library &library, bool rebuild)
             if (auto ok = run(query); !ok) {
                 return abort(ok.error());
             }
+            ++report.problems;
             if (known != knownNotes.constEnd()) {
                 ++report.removed;
             }
@@ -791,6 +798,7 @@ Result<ScanReport> Index::scan(const Library &library, bool rebuild)
             if (auto ok = run(query); !ok) {
                 return abort(ok.error());
             }
+            ++report.problems;
         }
     }
     if (!db.commit()) {
@@ -943,14 +951,14 @@ Result<QList<NoteSummary>> Index::search(const NoteFilter &filter, const Search 
         return listNotes(db, {where, values}, sort);
     }
 
+    const QString expression = QStringLiteral("(%1)").arg(ranked.join(QStringLiteral(") OR (")));
     QSqlQuery query(db);
-    query.prepare(QStringLiteral("SELECT %1, r.fragment FROM notes n LEFT JOIN (SELECT rowid, %2"
-                                 " AS rank, snippet(notes_fts, 1, char(2), char(3), '…', 24)"
-                                 " AS fragment FROM notes_fts WHERE notes_fts MATCH ?) r"
+    query.prepare(QStringLiteral("SELECT %1, r.rowid FROM notes n LEFT JOIN (SELECT rowid, %2"
+                                 " AS rank FROM notes_fts WHERE notes_fts MATCH ?) r"
                                  " ON r.rowid = n.seq WHERE %3"
                                  " ORDER BY r.rank IS NULL, r.rank, n.updated DESC, n.id")
                       .arg(SummaryColumns, Relevance, where));
-    query.addBindValue(QStringLiteral("(%1)").arg(ranked.join(QStringLiteral(") OR ("))));
+    query.addBindValue(expression);
     for (const QVariant &value : values) {
         query.addBindValue(value);
     }
@@ -958,17 +966,40 @@ Result<QList<NoteSummary>> Index::search(const NoteFilter &filter, const Search 
         return std::unexpected(ok.error());
     }
     QList<NoteSummary> list;
+    // The best notes matched in their text, by their row in the full-text table.
+    QHash<qint64, qsizetype> fragmentRows;
     while (query.next()) {
-        NoteSummary note = summaryFrom(query);
-        // A note found by a collection name or with matches only in its title keeps the start
-        // of its text.
+        if (const QVariant row = query.value(13);
+            !row.isNull() && fragmentRows.size() < FragmentRows) {
+            fragmentRows.insert(row.toLongLong(), list.size());
+        }
+        list.append(summaryFrom(query));
+    }
+    if (fragmentRows.isEmpty()) {
+        return list;
+    }
+
+    QSqlQuery fragments(db);
+    fragments.prepare(
+        QStringLiteral("SELECT rowid, snippet(notes_fts, 1, char(2), char(3), '…', 24)"
+                       " FROM notes_fts WHERE notes_fts MATCH ? AND rowid IN (%1)")
+            .arg(QStringList(fragmentRows.size(), QStringLiteral("?")).join(u',')));
+    fragments.addBindValue(expression);
+    for (const qint64 row : fragmentRows.keys()) {
+        fragments.addBindValue(row);
+    }
+    if (auto ok = run(fragments); !ok) {
+        return std::unexpected(ok.error());
+    }
+    while (fragments.next()) {
+        // A note with matches only in its title keeps the start of its text.
         QList<TextSpan> matches;
-        const QString fragment = fragmentText(query.value(13).toString(), matches);
+        const QString fragment = fragmentText(fragments.value(1).toString(), matches);
         if (!matches.isEmpty()) {
+            NoteSummary &note = list[fragmentRows.value(fragments.value(0).toLongLong())];
             note.snippet = fragment;
             note.matches = std::move(matches);
         }
-        list.append(std::move(note));
     }
     return list;
 }

@@ -3,22 +3,28 @@
 #include "core/Files.h"
 #include "core/LibrarySession.h"
 #include "core/NoteLinks.h"
+#include "editor/Formats.h"
 #include "editor/HtmlCodec.h"
 #include "editor/NoteEditor.h"
 #include "editor/NotePicker.h"
+#include "editor/Objects.h"
 #include "editor/TagStrip.h"
 #include "editor/TextEdit.h"
 #include "ui/Theme.h"
 
 #include <QAbstractItemView>
 #include <QAction>
+#include <QApplication>
 #include <QCompleter>
+#include <QImage>
 #include <QLineEdit>
 #include <QMenu>
+#include <QScrollBar>
 #include <QSignalSpy>
 #include <QStandardPaths>
 #include <QTemporaryDir>
 #include <QTest>
+#include <QTextBlock>
 
 using namespace Qt::StringLiterals;
 
@@ -235,6 +241,7 @@ private Q_SLOTS:
         auto *text = m_editor->findChild<editor::TextEdit *>();
         QTRY_COMPARE(text->toPlainText(), u"New"_s);
 
+        text->moveCursor(QTextCursor::End);
         QTest::keyClicks(text, u"more "_s);
         m_editor->saveNow();
         const QString body = m_session->library().readNote(linking.meta.id)->body;
@@ -350,6 +357,92 @@ private Q_SLOTS:
         QCOMPARE(firstText->toPlainText(), u"base one"_s);
         QVERIFY(m_editor->saveNow());
         QCOMPARE(m_session->library().readNote(note.meta.id)->body, u"<p>base one</p>"_s);
+    }
+
+    /// Loading a note fills a new document: an outside change reaches every view of the note,
+    /// each keeping its cursor, leaves nothing to undo, and typing afterwards is still saved by
+    /// the autosave timer.
+    void reloadReplacesDocument()
+    {
+        core::Note note = core::makeNote();
+        note.body = u"<p>first version</p>"_s;
+        QVERIFY(m_session->saveNote(note));
+        QVERIFY(m_editor->openNote(note.meta.id));
+        editor::NoteEditor second;
+        QVERIFY(second.setSession(m_session.get()));
+        QVERIFY(second.openNote(note.meta.id));
+        auto *firstText = m_editor->findChild<editor::TextEdit *>();
+        auto *secondText = second.findChild<editor::TextEdit *>();
+        const QTextDocument *before = firstText->document();
+        firstText->moveCursor(QTextCursor::End);
+        QTextCursor cursor = secondText->textCursor();
+        cursor.setPosition(5);
+        secondText->setTextCursor(cursor);
+
+        note.body = u"<p>second version</p>"_s;
+        QVERIFY(core::writeFileAtomic(m_session->library().notePath(note.meta.id),
+                                      core::serializeNote(note)));
+        m_editor->checkOutsideChanges();
+
+        QCOMPARE(firstText->toPlainText(), u"second version"_s);
+        QVERIFY(firstText->document() != before);
+        QCOMPARE(secondText->document(), firstText->document());
+        QCOMPARE(firstText->textCursor().position(), 13);
+        QCOMPARE(secondText->textCursor().position(), 5);
+        QVERIFY(!firstText->document()->isUndoAvailable());
+        QVERIFY(!firstText->document()->isModified());
+
+        firstText->moveCursor(QTextCursor::End);
+        QTest::keyClicks(firstText, u" typed"_s);
+        QTRY_COMPARE(m_session->library().readNote(note.meta.id)->body,
+                     u"<p>second version typed</p>"_s);
+    }
+
+    /// A note opens with the cursor and the view at its start, also when it holds tables
+    /// (regression: such a note opened scrolled to its end).
+    void opensAtStart()
+    {
+        core::Note note = core::makeNote();
+        for (int i = 0; i < 50; ++i) {
+            note.body += u"<p>Text</p>\n<table>\n<tbody>\n<tr><td><p>cell</p></td></tr>\n</tbody>\n"
+                         u"</table>\n"_s;
+        }
+        QVERIFY(m_session->saveNote(note));
+        m_editor->resize(600, 400);
+        m_editor->show();
+        QVERIFY(m_editor->openNote(note.meta.id));
+        auto *text = m_editor->findChild<editor::TextEdit *>();
+        QApplication::processEvents();
+        QVERIFY(text->verticalScrollBar()->maximum() > 0);
+        QCOMPARE(text->textCursor().position(), 0);
+        QCOMPARE(text->verticalScrollBar()->value(), 0);
+    }
+
+    /// The images of a loaded note find their files in the note's attachment folder.
+    void imagesFindTheirFiles()
+    {
+        core::Note note = core::makeNote();
+        const QString folder = m_session->library().attachmentsDir(note.meta.id);
+        QVERIFY(QDir().mkpath(folder));
+        QImage image(4, 4, QImage::Format_RGB32);
+        image.fill(Qt::red);
+        QVERIFY(image.save(folder + u"/red.png"_s));
+        note.body =
+            u"<p><img src=\"%1\"></p>"_s.arg(core::attachmentSource(note.meta.id, u"red.png"_s));
+        QVERIFY(m_session->saveNote(note));
+        QVERIFY(m_editor->openNote(note.meta.id));
+
+        const QTextDocument *document = m_editor->findChild<editor::TextEdit *>()->document();
+        const auto *objects = document->findChild<editor::ObjectHandler *>();
+        QVERIFY(objects != nullptr);
+        std::optional<QTextFormat> imageFormat;
+        for (auto it = document->begin().begin(); !it.atEnd(); ++it) {
+            if (it.fragment().charFormat().objectType() == editor::ImageObject) {
+                imageFormat = it.fragment().charFormat();
+            }
+        }
+        QVERIFY(imageFormat);
+        QVERIFY(QFileInfo(objects->filePath(*imageFormat)).isFile());
     }
 
     /// Navigation and detachment cannot discard text while its directory is unwritable.

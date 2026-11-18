@@ -254,7 +254,7 @@ void LibrarySession::scanFinished()
     if (!result) {
         Q_EMIT failed(result.error());
     } else if (m_firstScan || m_scanClears ||
-               result->added + result->updated + result->removed > 0) {
+               result->added + result->updated + result->removed + result->problems > 0) {
         Q_EMIT notesChanged();
     }
     const int retentionDays = m_library.info().trashRetentionDays.value_or(0);

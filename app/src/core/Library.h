@@ -127,10 +127,21 @@ struct CollectionLevel
 /// @return The collections with their levels.
 QList<CollectionLevel> collectionTree(const QList<Collection> &collections);
 
+/// Why a library refuses writes.
+enum class ReadOnlyReason {
+    /// The library is writable.
+    None,
+    /// The library was written by a newer Jotter.
+    NewerFormat,
+    /// The person may not write to the library folder or its `notes` or `attachments` folder.
+    NoPermission,
+};
+
 /// A library folder: its layout, `library.json`, the collection tree and the note files.
 ///
 /// The library's files are the only source of truth. Every write is atomic. A library written
-/// by a newer Jotter opens read-only and refuses writes.
+/// by a newer Jotter, or one in folders the person may not write to, opens read-only and
+/// refuses writes.
 class Library
 {
 public:
@@ -143,7 +154,8 @@ public:
     /// Opens an existing library.
     ///
     /// @param root The library folder.
-    /// @return The library, read-only when its format is newer; or NotFound / Malformed / Io.
+    /// @return The library, read-only when its format is newer or its folders are not writable;
+    ///         or NotFound / Malformed / Io.
     static Result<Library> open(const QString &root);
 
     /// Tells whether @p root holds a library (it has a `library.json`).
@@ -151,7 +163,9 @@ public:
 
     const QString &root() const { return m_root; }
     const LibraryInfo &info() const { return m_info; }
-    bool isReadOnly() const { return m_readOnly; }
+    bool isReadOnly() const { return m_readOnly != ReadOnlyReason::None; }
+    /// Tells why the library refuses writes; None when it is writable.
+    ReadOnlyReason readOnlyReason() const { return m_readOnly; }
 
     /// Returns the folder holding the note files.
     QString notesDir() const;
@@ -196,14 +210,14 @@ public:
     Result<void> writeCollections(const QList<Collection> &collections) const;
 
 private:
-    Library(QString root, LibraryInfo info, bool readOnly);
+    Library(QString root, LibraryInfo info, ReadOnlyReason readOnly);
 
     /// Refuses a write while the library is read-only.
     Result<void> checkWritable() const;
 
     QString m_root;
     LibraryInfo m_info;
-    bool m_readOnly = false;
+    ReadOnlyReason m_readOnly = ReadOnlyReason::None;
     mutable std::optional<QList<Collection>> m_collectionBase;
     mutable std::optional<QList<Rule>> m_ruleBase;
 };

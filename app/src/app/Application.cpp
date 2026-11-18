@@ -113,6 +113,7 @@ int Application::start()
 
     m_window = std::make_unique<MainWindow>(m_settings);
     connect(m_window.get(), &MainWindow::settingsRequested, this, &Application::showSettings);
+    connect(m_window.get(), &MainWindow::problemsRequested, this, &Application::showProblems);
     connect(m_window.get(), &MainWindow::syncRequested, this, [this] {
         if (m_scheduler && m_scheduler->isConnected()) {
             m_scheduler->syncNow();
@@ -295,6 +296,12 @@ void Application::showSettings()
     m_settingsDialog->show();
     m_settingsDialog->raise();
     m_settingsDialog->activateWindow();
+}
+
+void Application::showProblems()
+{
+    showSettings();
+    m_settingsDialog->showSection(SettingsDialog::Section::Library);
 }
 
 void Application::startSync()

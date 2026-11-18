@@ -135,6 +135,42 @@ private Q_SLOTS:
         const auto written = library->writeNote(core::makeNote());
         QVERIFY(!written);
         QCOMPARE(written.error().code, core::ErrorCode::ReadOnly);
+        QCOMPARE(library->readOnlyReason(), core::ReadOnlyReason::NewerFormat);
+    }
+
+    /// A library whose root or notes folder the person may not write to opens read-only with
+    /// NoPermission and refuses writes before touching a file; once writable it opens as usual.
+    void unwritableLibraryIsReadOnly_data()
+    {
+        QTest::addColumn<QString>("folder");
+        QTest::newRow("root") << QString();
+        QTest::newRow("notes") << QStringLiteral("notes");
+    }
+
+    void unwritableLibraryIsReadOnly()
+    {
+        QFETCH(QString, folder);
+        QTemporaryDir dir;
+        QVERIFY(core::Library::create(dir.path()));
+        const QString target = folder.isEmpty() ? dir.path() : dir.filePath(folder);
+        const auto writable = QFile::permissions(target);
+        QVERIFY(QFile::setPermissions(target, QFileDevice::ReadOwner | QFileDevice::ExeOwner));
+        const auto restore = qScopeGuard([&] { QFile::setPermissions(target, writable); });
+        if (QFileInfo(target).isWritable()) {
+            QSKIP("Folder permissions do not apply to this user (root).");
+        }
+        auto library = core::Library::open(dir.path());
+        QVERIFY(library);
+        QVERIFY(library->isReadOnly());
+        QCOMPARE(library->readOnlyReason(), core::ReadOnlyReason::NoPermission);
+        const auto written = library->writeNote(core::makeNote());
+        QVERIFY(!written);
+        QCOMPARE(written.error().code, core::ErrorCode::ReadOnly);
+
+        QVERIFY(QFile::setPermissions(target, writable));
+        library = core::Library::open(dir.path());
+        QVERIFY(library);
+        QCOMPARE(library->readOnlyReason(), core::ReadOnlyReason::None);
     }
 
     /// The collection tree keeps its order, parents and unknown fields.

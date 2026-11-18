@@ -277,6 +277,18 @@
         <source>Note not found</source>
         <translation>Заметка не найдена</translation>
     </message>
+    <message numerus="yes">
+        <source>%n note file(s) could not be read.</source>
+        <translation>
+            <numerusform>Не удалось прочитать %n файл заметки.</numerusform>
+            <numerusform>Не удалось прочитать %n файла заметок.</numerusform>
+            <numerusform>Не удалось прочитать %n файлов заметок.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation>Показать</translation>
+    </message>
     <message>
         <source>Exported to %1.</source>
         <translation>Экспорт сохранён: %1.</translation>
@@ -1188,8 +1200,8 @@
         <translation>Сколько удалённые заметки хранятся в корзине, прежде чем будут удалены окончательно. Настройка хранится в библиотеке.</translation>
     </message>
     <message>
-        <source>Rules file notes into collections by their title and tags. They run in this order when a note is created and when its title or tags change. They belong to the library and follow it to other devices.</source>
-        <translation>Правила раскладывают заметки по коллекциям по их названию и тегам. Они проверяются в этом порядке при создании заметки и при изменении её названия или тегов. Правила хранятся в библиотеке и переходят вместе с ней на другие устройства.</translation>
+        <source>Rules file notes into collections by their tags. They run in this order when a note is created and when its tags change. They belong to the library and follow it to other devices.</source>
+        <translation>Правила раскладывают заметки по коллекциям по их тегам. Они проверяются в этом порядке при создании заметки и при изменении её тегов. Правила хранятся в библиотеке и переходят вместе с ней на другие устройства.</translation>
     </message>
     <message>
         <source>No rules yet.</source>
@@ -2275,6 +2287,10 @@ New %2 key: %3</source>
     <message>
         <source>This library was made by a newer version of Jotter and is read-only.</source>
         <translation>Эта библиотека создана более новой версией Jotter и открыта только для чтения.</translation>
+    </message>
+    <message>
+        <source>You may not change the files of this library folder, so it is read-only.</source>
+        <translation>У вас нет прав на изменение файлов в папке этой библиотеки, поэтому она открыта только для чтения.</translation>
     </message>
     <message>
         <source>The library is being updated. Editing will resume when it finishes.</source>

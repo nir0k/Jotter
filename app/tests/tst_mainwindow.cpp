@@ -266,6 +266,35 @@ private Q_SLOTS:
         QCOMPARE(list->currentNote(), m_window->findChild<editor::NoteEditor *>()->noteId());
     }
 
+    /// A note file the index cannot read is announced once, with Show leading to the list of
+    /// problems; a later scan without new problems stays quiet.
+    void unreadableNotesAreAnnounced()
+    {
+        const QString broken = m_session->library().notePath(core::newId());
+        QVERIFY(core::writeFileAtomic(broken, "not a note"));
+        auto *toast = m_window->findChild<ui::Toast *>();
+        QSignalSpy shown(m_window.operator->(), &MainWindow::problemsRequested);
+        m_session->refresh();
+        QTRY_VERIFY(toast->isVisibleTo(m_window.operator->()));
+        QVERIFY(std::ranges::any_of(toast->findChildren<QLabel *>(), [](const QLabel *label) {
+            // Without the English translation the plural form keeps its "(s)".
+            return label->text().startsWith(u"1 note file"_s) &&
+                   label->text().endsWith(u"could not be read."_s);
+        }));
+        toast->findChild<QPushButton *>()->click();
+        QCOMPARE(shown.size(), 1);
+
+        toast->hide();
+        core::Note note = core::makeNote();
+        note.meta.title = u"Fine"_s;
+        QVERIFY(core::writeFileAtomic(m_session->library().notePath(note.meta.id),
+                                      core::serializeNote(note)));
+        QSignalSpy scanned(m_session.get(), &core::LibrarySession::notesChanged);
+        m_session->refresh();
+        QVERIFY(scanned.wait());
+        QVERIFY(!toast->isVisibleTo(m_window.operator->()));
+    }
+
     /// A rule that files a note announces it with Undo, which gives the note back its
     /// collections.
     void ruleUndo()

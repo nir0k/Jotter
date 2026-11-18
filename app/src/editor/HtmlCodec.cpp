@@ -1007,7 +1007,14 @@ private:
 
 void readBody(QTextDocument &document, QStringView html, ReadMode mode)
 {
-    Reader(document, mode).read(html);
+    Reader reader(document, mode);
+    // Qt rebuilds the whole frame tree when an edit that added a frame ends, so a body with
+    // many code blocks or tables would take time growing with the square of their number. As
+    // one edit block, the body is read with a single rebuild at its end.
+    QTextCursor edit(&document);
+    edit.beginEditBlock();
+    reader.read(html);
+    edit.endEditBlock();
 }
 
 QString writeBody(const QTextDocument &document)

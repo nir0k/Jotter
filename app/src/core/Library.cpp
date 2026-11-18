@@ -9,6 +9,7 @@
 #include "core/Tags.h"
 
 #include <QDir>
+#include <QFileInfo>
 #include <QJsonArray>
 #include <QMultiHash>
 #include <QSet>
@@ -273,7 +274,7 @@ QList<CollectionLevel> collectionTree(const QList<Collection> &collections)
     return levels;
 }
 
-Library::Library(QString root, LibraryInfo info, bool readOnly)
+Library::Library(QString root, LibraryInfo info, ReadOnlyReason readOnly)
     : m_root(std::move(root))
     , m_info(std::move(info))
     , m_readOnly(readOnly)
@@ -305,7 +306,7 @@ Result<Library> Library::create(const QString &root)
             return std::unexpected(written.error());
         }
     }
-    return Library(absolute, std::move(info), false);
+    return Library(absolute, std::move(info), ReadOnlyReason::None);
 }
 
 Result<Library> Library::open(const QString &root)
@@ -329,15 +330,25 @@ Result<Library> Library::open(const QString &root)
     if (!info) {
         return std::unexpected(info.error());
     }
-    if (!newer) {
-        // Folders removed by hand are recreated; they hold no data of their own.
-        for (const QLatin1StringView sub : {NotesDir, AttachmentsDir}) {
-            if (auto made = makeDirectory(absolute + u'/' + sub); !made) {
-                return std::unexpected(made.error());
-            }
+    if (newer) {
+        return Library(absolute, std::move(*info), ReadOnlyReason::NewerFormat);
+    }
+    // Writes replace files through their folders, so the folders decide whether the library
+    // can be changed. A folder that cannot be written is not recreated either.
+    if (!QFileInfo(absolute).isWritable()) {
+        return Library(absolute, std::move(*info), ReadOnlyReason::NoPermission);
+    }
+    // Folders removed by hand are recreated; they hold no data of their own.
+    for (const QLatin1StringView sub : {NotesDir, AttachmentsDir}) {
+        const QString folder = absolute + u'/' + sub;
+        if (auto made = makeDirectory(folder); !made) {
+            return std::unexpected(made.error());
+        }
+        if (!QFileInfo(folder).isWritable()) {
+            return Library(absolute, std::move(*info), ReadOnlyReason::NoPermission);
         }
     }
-    return Library(absolute, std::move(*info), newer);
+    return Library(absolute, std::move(*info), ReadOnlyReason::None);
 }
 
 bool Library::exists(const QString &root)
@@ -362,7 +373,7 @@ QString Library::attachmentsDir(const QString &noteId) const
 
 Result<void> Library::checkWritable() const
 {
-    if (m_readOnly) {
+    if (isReadOnly()) {
         return fail(ErrorCode::ReadOnly, m_root);
     }
     return {};

@@ -31,8 +31,24 @@ class SettingsDialog : public QDialog
     Q_OBJECT
 
 public:
+    /// The sections, in the order of the navigation list.
+    enum class Section {
+        General,
+        Appearance,
+        Language,
+        Notes,
+        Library,
+        Sync,
+        Rules,
+        Keyboard,
+        About
+    };
+
     SettingsDialog(ui::PaletteId palette, ui::ThemeMode mode, const QString &language,
                    QWidget *parent = nullptr);
+
+    /// Switches to @p section.
+    void showSection(Section section);
 
     /// Marks the current interface size (14, 16 or 18 pixels).
     void setInterfaceSize(int pixels);
