@@ -248,6 +248,42 @@ private Q_SLOTS:
         QVERIFY2(body.contains(u"\">New") && !body.contains(u"Old"), qPrintable(body));
     }
 
+    /// Renaming a note that others link to disables the editor while the links are renamed;
+    /// the title being typed gets the keyboard focus back afterwards (regression).
+    void titleKeepsFocusWhileLinksRename()
+    {
+        core::Note target = core::makeNote();
+        target.meta.title = u"Old"_s;
+        QVERIFY(m_session->saveNote(target));
+        core::Note linking = core::makeNote();
+        linking.body = u"<p><a class=\"note-link\" href=\"%1\">Old</a></p>"_s.arg(
+            core::noteLinkAddress(target.meta.id));
+        QVERIFY(m_session->saveNote(linking));
+        m_editor->show();
+        m_editor->activateWindow();
+        QVERIFY(QTest::qWaitForWindowActive(&*m_editor));
+        m_editor->openNote(target.meta.id);
+        QLineEdit *title = nullptr;
+        for (QLineEdit *edit : m_editor->findChildren<QLineEdit *>()) {
+            if (edit->property("titleField").toBool()) {
+                title = edit;
+            }
+        }
+        QVERIFY(title != nullptr);
+        title->setFocus();
+        title->end(false);
+        QTest::keyClicks(title, u"er"_s);
+
+        QSignalSpy mutation(m_session.get(), &core::LibrarySession::mutationChanged);
+        QVERIFY(m_editor->saveNow());
+        QCOMPARE(mutation.count(), 1);
+        QVERIFY(!m_editor->isEnabled());
+        QTRY_VERIFY(m_editor->isEnabled());
+        QCOMPARE(QApplication::focusWidget(), title);
+        QTest::keyClicks(title, u"!"_s);
+        QCOMPARE(title->text(), u"Older!"_s);
+    }
+
     /// A trashed note opens read-only and is never written.
     void trashedIsReadOnly()
     {

@@ -87,6 +87,12 @@ MainWindow::MainWindow(Settings &settings, QWidget *parent)
             showPane(Pane::Note);
         }
     });
+    // A click on the note already open does not change the selection, so it shows the note here.
+    connect(m_list, &NoteList::noteActivated, this, [this](const QString &id) {
+        if (m_layout == Layout::Narrow && id == m_editor->noteId()) {
+            showPane(Pane::Note);
+        }
+    });
     connect(m_list, &NoteList::sortChanged, this, [this](const core::NoteSort &sort) {
         m_settings.setNoteSort(sort);
         refreshList();
@@ -832,7 +838,8 @@ void MainWindow::updateLayout()
     if (layout != m_layout) {
         m_layout = layout;
         m_sidebarOpen = false;
-        m_pane = m_list->currentNote().isEmpty() ? Pane::List : m_pane;
+        // The note open in the wider layout stays in view; Back leads to the list.
+        m_pane = m_editor->noteId().isEmpty() ? Pane::List : Pane::Note;
     }
     if (m_focusMode) {
         m_sidebar->hide();

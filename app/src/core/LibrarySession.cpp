@@ -375,6 +375,12 @@ void LibrarySession::renameLinksTo(const QString &id, const QString &oldTitle,
                                    const QString &newTitle)
 {
     if (!m_worker) {
+        // The worker blocks editing while it runs, so a note nothing links to, the usual case
+        // while a title is typed, does not start it. A failed lookup is left to the worker,
+        // which reports it.
+        if (const auto linking = m_index.backlinks(id, true); linking && linking->isEmpty()) {
+            return;
+        }
         mutate([id, oldTitle, newTitle](LibrarySession &worker) -> Result<void> {
             worker.renameLinksTo(id, oldTitle, newTitle);
             return {};

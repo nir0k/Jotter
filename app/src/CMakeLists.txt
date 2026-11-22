@@ -70,7 +70,8 @@ qt_add_library(jotter_editor STATIC
     editor/Presenter.cpp editor/Presenter.h
     editor/Syntax.cpp editor/Syntax.h
     editor/TagStrip.cpp editor/TagStrip.h
-    editor/TextEdit.cpp editor/TextEdit.h
+    editor/TextEdit.cpp editor/TextEdit.h editor/TextEditCode.cpp editor/TextEditObjects.cpp
+    editor/TextEditTransfer.cpp
 )
 target_link_libraries(jotter_editor PUBLIC jotter_core jotter_ui
     PRIVATE KF6::SyntaxHighlighting KF6::Archive PkgConfig::MD4C)

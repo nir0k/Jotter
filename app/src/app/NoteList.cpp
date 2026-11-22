@@ -11,6 +11,7 @@
 #include <QActionGroup>
 #include <QDir>
 #include <QEvent>
+#include <QGuiApplication>
 #include <QHBoxLayout>
 #include <QKeyEvent>
 #include <QLabel>
@@ -568,6 +569,14 @@ NoteList::NoteList(QWidget *parent)
                     Q_EMIT noteSelected(current.data(Qt::UserRole).toString());
                 }
             });
+    // Ctrl and Shift clicks extend the selection and must not open the note.
+    const auto activate = [this](const QModelIndex &index) {
+        if (index.isValid() && QGuiApplication::keyboardModifiers() == Qt::NoModifier) {
+            Q_EMIT noteActivated(index.data(Qt::UserRole).toString());
+        }
+    };
+    connect(m_list, &QAbstractItemView::clicked, this, activate);
+    connect(m_list, &QAbstractItemView::activated, this, activate);
     retranslate();
 }
 

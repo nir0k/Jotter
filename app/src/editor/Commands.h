@@ -83,8 +83,8 @@ void insertDivider(QTextCursor cursor);
 bool applyMarkdownPrefix(QTextCursor cursor);
 
 /// Applies the Markdown shortcut that is a whole paragraph, when Return is pressed at its end:
-/// `---` becomes a divider, and ` ``` ` followed by an optional language name becomes a code
-/// block. Neither applies in a table cell. Undo brings the typed characters back.
+/// three or more `-` become a divider, and ` ``` ` followed by an optional language name becomes
+/// a code block. Neither applies in a table cell. Undo brings the typed characters back.
 ///
 /// @param cursor A cursor at the end of the paragraph; moved to the paragraph after the change.
 /// @return true when a shortcut was applied and Return needs no further handling.
