@@ -310,6 +310,8 @@ private Q_SLOTS:
         QTest::newRow("heading") << u"## a"_s << u"<h2>a</h2>"_s;
         QTest::newRow("quote") << u"> a"_s << u"<blockquote>\n<p>a</p>\n</blockquote>"_s;
         QTest::newRow("divider") << u"---\na"_s << u"<hr>\n<p>a</p>"_s;
+        QTest::newRow("long divider") << u"-----\na"_s << u"<hr>\n<p>a</p>"_s;
+        QTest::newRow("two dashes") << u"--\na"_s << u"<p>--</p>\n<p>a</p>"_s;
         QTest::newRow("mid-line") << u"a - b 1. c"_s << u"<p>a - b 1. c</p>"_s;
         QTest::newRow("same list kind") << u"- - a"_s << u"<ul>\n<li>- a</li>\n</ul>"_s;
         QTest::newRow("nested kind")
@@ -962,6 +964,65 @@ private Q_SLOTS:
         QCOMPARE(editor::writeBody(*edit.document()), u"<p>1. </p>"_s);
     }
 
+    /// Backspace right after an automatic change undoes it and keeps the typed characters.
+    void backspaceUndoesShortcut_data()
+    {
+        QTest::addColumn<QString>("typed");
+        QTest::addColumn<QString>("html");
+        QTest::newRow("bulleted list") << u"- "_s << u"<p>- x</p>"_s;
+        QTest::newRow("numbered list") << u"1. "_s << u"<p>1. x</p>"_s;
+        QTest::newRow("checklist") << u"[ ] "_s << u"<p>[ ] x</p>"_s;
+        QTest::newRow("heading") << u"## "_s << u"<p>## x</p>"_s;
+        QTest::newRow("quote") << u"> "_s << u"<p>&gt; x</p>"_s;
+        QTest::newRow("divider") << u"---\n"_s << u"<p>---x</p>"_s;
+        QTest::newRow("code block") << u"```\n"_s << u"<p>```x</p>"_s;
+        QTest::newRow("inline code") << u"`a`"_s << u"<p>`a`x</p>"_s;
+        QTest::newRow("link") << u"https://example.com "_s << u"<p>https://example.com x</p>"_s;
+    }
+
+    void backspaceUndoesShortcut()
+    {
+        QFETCH(QString, typed);
+        QFETCH(QString, html);
+        editor::TextEdit edit;
+        for (const QChar c : typed) {
+            if (c == u'\n') {
+                QTest::keyClick(&edit, Qt::Key_Return);
+            } else if (c == u' ') {
+                QTest::keyClick(&edit, Qt::Key_Space, Qt::NoModifier);
+            } else {
+                QTest::keyClicks(&edit, QString(c));
+            }
+        }
+        const QString applied = editor::writeBody(*edit.document());
+        QCoreApplication::processEvents();
+        QTest::keyClick(&edit, Qt::Key_Backspace);
+        QTest::keyClicks(&edit, u"x"_s);
+        QCOMPARE(editor::writeBody(*edit.document()), html);
+        QVERIFY(applied != html);
+    }
+
+    /// Once something is typed or the cursor moves, Backspace no longer undoes the change.
+    void backspaceAfterShortcutDeletes()
+    {
+        editor::TextEdit edit;
+        QTest::keyClicks(&edit, u"##"_s);
+        QTest::keyClick(&edit, Qt::Key_Space, Qt::NoModifier);
+        QTest::keyClicks(&edit, u"a"_s);
+        QTest::keyClick(&edit, Qt::Key_Backspace);
+        QCOMPARE(editor::writeBody(*edit.document()), u"<h2></h2>"_s);
+
+        edit.clear();
+        QTest::keyClicks(&edit, u"abc"_s);
+        QTest::keyClick(&edit, Qt::Key_Return);
+        QTest::keyClicks(&edit, u"-"_s);
+        QTest::keyClick(&edit, Qt::Key_Space, Qt::NoModifier);
+        QTest::keyClick(&edit, Qt::Key_Left);
+        QTest::keyClick(&edit, Qt::Key_Right);
+        QTest::keyClick(&edit, Qt::Key_Backspace);
+        QVERIFY(!edit.toPlainText().contains(u'-'));
+    }
+
     /// Pasted Markdown uses the note model; unformatted text keeps its exact whitespace.
     void markdownPaste_data()
     {
@@ -976,8 +1037,13 @@ private Q_SLOTS:
             << u"<p>before</p>\n<pre data-language=\"go\"><code>x\n    y</code></pre>\n<p>after</p>"_s;
         QTest::newRow("fence blanks") << u"```\n\nx\n\n```"_s << u"<pre><code>\nx\n</code></pre>"_s;
         QTest::newRow("empty fence") << u"```\n```"_s << u"<pre><code></code></pre>"_s;
-        QTest::newRow("indented code")
-            << u"text\n\n    x\n    y"_s << u"<p>text</p>\n<pre><code>x\ny</code></pre>"_s;
+        // Copied text indents lists by a tab or four spaces; only fences make code (regression).
+        QTest::newRow("indented list") << u"text\n\n    - x\n    - y"_s
+                                       << u"<p>text</p>\n<ul>\n<li>x</li>\n<li>y</li>\n</ul>"_s;
+        QTest::newRow("tab-indented list")
+            << u"text\n\n\t1. x\n\t2. y"_s << u"<p>text</p>\n<ol>\n<li>x</li>\n<li>y</li>\n</ol>"_s;
+        QTest::newRow("indented text")
+            << u"**text**\n\n    x\n    y"_s << u"<p><strong>text</strong></p>\n<p>x<br>y</p>"_s;
         QTest::newRow("tasks")
             << u"- [x] done\n- [ ] todo"_s
             << u"<ul class=\"checklist\">\n<li data-checked=\"true\">done</li>\n<li data-checked=\"false\">todo</li>\n</ul>"_s;
@@ -1080,6 +1146,10 @@ private Q_SLOTS:
                                      << u"<pre data-language=\"go\"><code>x</code></pre>"_s;
         QTest::newRow("list") << u"- first\n- second"_s << u"<p>- first</p><p>- second</p>"_s
                               << u"<ul>\n<li>first</li>\n<li>second</li>\n</ul>"_s;
+        QTest::newRow("indented list")
+            << u"Steps:\n\n    - first\n    - second"_s
+            << u"<p>Steps:</p><ul><li>first</li><li>second</li></ul>"_s
+            << u"<p>Steps:</p>\n<ul>\n<li>first</li>\n<li>second</li>\n</ul>"_s;
         QTest::newRow("link") << u"[site](https://example.com)"_s
                               << u"<p>[site](https://example.com)</p>"_s
                               << u"<p><a href=\"https://example.com\">site</a></p>"_s;

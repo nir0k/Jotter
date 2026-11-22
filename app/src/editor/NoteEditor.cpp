@@ -1283,7 +1283,22 @@ void NoteEditor::showMoreMenu()
 void NoteEditor::updateReadOnly()
 {
     // Disable action shortcuts as well as text input while a worker mutates these notes.
-    setEnabled(m_session == nullptr || !m_session->isMutating());
+    const bool enabled = m_session == nullptr || !m_session->isMutating();
+    if (!enabled && isEnabled()) {
+        QWidget *focus = window()->focusWidget();
+        m_mutationFocus = focus != nullptr && isAncestorOf(focus) ? focus : nullptr;
+        setEnabled(false);
+        m_focusAfterDisable = window()->focusWidget();
+    } else if (enabled && !isEnabled()) {
+        setEnabled(true);
+        // Disabling took the keyboard focus away; it returns where the person was typing,
+        // unless they have moved it since.
+        if (m_mutationFocus != nullptr && m_mutationFocus->isVisible() &&
+            window()->focusWidget() == m_focusAfterDisable) {
+            m_mutationFocus->setFocus(Qt::OtherFocusReason);
+        }
+        m_mutationFocus = nullptr;
+    }
     QString reason;
     if (m_buffer->note && m_session != nullptr) {
         const core::ReadOnlyReason readOnly = m_session->library().readOnlyReason();

@@ -10,7 +10,7 @@ body:
     attributes:
       label: Jotter version
       description: Shown in Settings, or by `flatpak info io.github.nir0k.Jotter`.
-      placeholder: "0.5.2"
+      placeholder: "0.5.3"
     validations:
       required: true
   - type: input

@@ -522,8 +522,9 @@ bool applyMarkdownLine(QTextCursor &cursor)
         return false;
     }
     static const QRegularExpression fence(QStringLiteral(R"(^```(\S*)$)"));
+    static const QRegularExpression rule(QStringLiteral("^-{3,}$"));
     const QRegularExpressionMatch match = fence.match(block.text());
-    if (block.text() != QLatin1StringView("---") && !match.hasMatch()) {
+    if (!match.hasMatch() && !rule.match(block.text()).hasMatch()) {
         return false;
     }
     cursor.beginEditBlock();

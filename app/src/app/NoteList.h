@@ -133,6 +133,9 @@ public:
 
 Q_SIGNALS:
     void noteSelected(const QString &id);
+    /// Emitted when the person clicks a note without modifiers or activates it (Enter), even
+    /// when it is already the current one.
+    void noteActivated(const QString &id);
     void sortChanged(const core::NoteSort &sort);
     void sidebarRequested();
     void retryRequested();

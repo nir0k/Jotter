@@ -349,6 +349,39 @@ private Q_SLOTS:
         QVERIFY(sidebar->isVisible() && list->isVisible());
     }
 
+    /// Narrowed to one pane, the window keeps the open note in view, and after Back a click on
+    /// that same note, which leaves the selection unchanged, shows it again (regression).
+    void narrowLayoutShowsOpenNote()
+    {
+        m_window->resize(1200, 700);
+        m_window->show();
+        QVERIFY(QTest::qWaitForWindowExposed(&*m_window));
+        newNoteButton()->click();
+        auto *list = m_window->findChild<NoteList *>();
+        auto *editor = m_window->findChild<editor::NoteEditor *>();
+        QTRY_VERIFY(!list->currentNote().isEmpty());
+
+        m_window->resize(500, 700);
+        QTRY_VERIFY(editor->isVisible());
+        QVERIFY(!list->isVisible());
+
+        QToolButton *back = nullptr;
+        for (auto *button : editor->findChildren<QToolButton *>()) {
+            if (button->accessibleName() == u"Back to the list"_s) {
+                back = button;
+            }
+        }
+        QVERIFY(back != nullptr);
+        back->click();
+        QVERIFY(list->isVisible() && !editor->isVisible());
+
+        auto *view = list->findChild<QListView *>();
+        const QModelIndex current = view->currentIndex();
+        QVERIFY(current.isValid());
+        QTest::mouseClick(view->viewport(), Qt::LeftButton, {}, view->visualRect(current).center());
+        QVERIFY(editor->isVisible() && !list->isVisible());
+    }
+
     /// A list refreshed while Qt still reports Ctrl as held, as it does after Ctrl+C until the
     /// next input, keeps the open note selected and open (regression).
     void refreshWithCtrlHeld()

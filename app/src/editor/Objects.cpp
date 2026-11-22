@@ -186,6 +186,11 @@ ImageWrap imageWrap(const QTextFormat &format)
     return static_cast<ImageWrap>(wrap);
 }
 
+bool isObject(const QTextFormat &format)
+{
+    return format.objectType() == ImageObject || format.objectType() == AttachmentObject;
+}
+
 void insertObject(QTextCursor &cursor, const QTextCharFormat &format)
 {
     if (imageWrap(format) != ImageWrap::Square) {

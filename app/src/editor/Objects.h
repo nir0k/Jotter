@@ -36,6 +36,9 @@ QTextCharFormat imageFormat(const QString &noteId, const QString &fileName, int 
 /// Returns how text flows around an image; ImageWrap::Inline for anything else.
 ImageWrap imageWrap(const QTextFormat &format);
 
+/// Returns whether a format is that of an image or an attachment chip.
+bool isObject(const QTextFormat &format);
+
 /// Inserts an image or an attachment chip at the cursor in place of its selection. An image
 /// wrapped square gets the floating frame Qt lays it out with, at the left of its column; the
 /// frame holds no text.

@@ -118,6 +118,20 @@ private Q_SLOTS:
             u"<p>%1 %2</p>"_s.arg(linkTo(target, u"Plan B"_s), linkTo(target, u"see here"_s)));
     }
 
+    /// Renaming a note nothing links to starts no mutation, which would block editing while
+    /// the title is typed (regression).
+    void renamingUnlinked()
+    {
+        core::Note note = core::makeNote();
+        note.meta.title = u"Draft"_s;
+        QVERIFY(m_session->saveNote(note));
+        QSignalSpy mutation(m_session.get(), &core::LibrarySession::mutationChanged);
+        note.meta.title = u"Draft 2"_s;
+        QVERIFY(m_session->saveNote(note));
+        QVERIFY(!m_session->isMutating());
+        QCOMPARE(mutation.count(), 0);
+    }
+
     /// The table of contents lists notes under each of their collections, nested collections
     /// as nested headings, then notes without a collection and the archive, leaving out the
     /// trash and empty collections.

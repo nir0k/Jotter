@@ -175,6 +175,10 @@ private:
     std::shared_ptr<NoteBuffer> m_buffer;
     bool m_readOnly = false;
     bool m_focusMode = false;
+    /// The widget of this editor that had the keyboard focus when a mutation disabled it.
+    QPointer<QWidget> m_mutationFocus;
+    /// The window's focus widget right after that, to see whether the person moved it since.
+    QPointer<QWidget> m_focusAfterDisable;
 
     QToolButton *m_back;
     QStackedWidget *m_stack;

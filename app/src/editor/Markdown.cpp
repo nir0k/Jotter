@@ -18,9 +18,12 @@ namespace {
 
 /// The md4c extensions of GitHub Markdown that notes hold, with embedded HTML read as text.
 /// They are named one by one because newer md4c releases add extensions to
-/// MD_DIALECT_GITHUB, such as footnotes, that notes have no place for.
+/// MD_DIALECT_GITHUB, such as footnotes, that notes have no place for. Only fenced code makes
+/// a code block: copied text often indents its lists by a tab or four spaces, which would
+/// otherwise turn them into indented code.
 constexpr unsigned GitHubFlags = MD_FLAG_PERMISSIVEAUTOLINKS | MD_FLAG_TABLES |
-                                 MD_FLAG_STRIKETHROUGH | MD_FLAG_TASKLISTS | MD_FLAG_NOHTML;
+                                 MD_FLAG_STRIKETHROUGH | MD_FLAG_TASKLISTS | MD_FLAG_NOHTML |
+                                 MD_FLAG_NOINDENTEDCODEBLOCKS;
 
 /// Returns the text of a UTF-8 chunk reported by md4c.
 QString textOf(const MD_CHAR *text, MD_SIZE size)
@@ -39,7 +42,7 @@ QString decodeEntity(const QString &entity)
 /// Returns the decoded value of an md4c attribute, such as a link destination.
 QString attributeOf(const MD_ATTRIBUTE &attribute)
 {
-    // md4c leaves the attributes of an indented code block zeroed, without substrings.
+    // md4c leaves an absent attribute, such as the language of a bare fence, zeroed.
     if (attribute.size == 0) {
         return {};
     }

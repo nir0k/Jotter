@@ -158,7 +158,22 @@ private:
     bool toggleCheckboxAt(const QPoint &viewportPosition);
 
     /// Turns the address typed before the cursor into a link once a space follows it.
-    void linkTypedAddress();
+    ///
+    /// @return true when a link was made.
+    bool linkTypedAddress();
+
+    /// Remembers that an automatic change (a Markdown shortcut or a link made from a typed
+    /// address) was just applied as its own undo step, so Backspace right after it undoes it.
+    ///
+    /// @param typedAt The cursor position before the change, where undoing it puts the cursor.
+    void markAutoFormat(int typedAt);
+
+    /// Undoes the automatic change remembered by markAutoFormat() when nothing was typed and the
+    /// cursor has not moved since, bringing back the typed characters. The change is forgotten
+    /// either way.
+    ///
+    /// @return true when the change was undone and Backspace needs no further handling.
+    bool undoAutoFormat();
 
     /// A column line or a table's right edge being dragged. A column line
     /// moves between the outer edges of the two columns it separates; the right edge sets the
@@ -328,6 +343,16 @@ private:
     QLineF m_dropMark;
     /// The table under the mouse, whose grip is shown.
     QPointer<QTextTable> m_hoverTable;
+    /// The automatic change just applied: the document's undo steps and the cursor position
+    /// right after it, and the cursor position before it.
+    struct AutoFormat
+    {
+        int undoSteps = 0;
+        int position = 0;
+        int typedAt = 0;
+    };
+    /// The automatic change Backspace would undo; cleared when the cursor moves.
+    std::optional<AutoFormat> m_autoFormat;
 };
 
 } // namespace editor
